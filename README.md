@@ -1,24 +1,12 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Team
+Ashwin Vivek, ashwin9798
+Edgar Lopez, edgineer
+Emily Tehrani, etehrani
+Suyash Saxena, suyashSax
 
-Things you may want to cover:
+# Attending section 1B (2pm)
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# Description
+A subcription-sharing service (Hulu, Spotify, Netflix, FuboTV, Sling, HBO, NFL, <sport sites>) for new or existing users looking to split their subsciption costs with others.

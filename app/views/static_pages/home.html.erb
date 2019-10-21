@@ -1,11 +1,37 @@
 
 <% provide(:title, "Home") %>
-<div class="center jumbotron">
-  <h1>Divvy</h1>
-  <h2>This is Divvy</h2>
-  <p>
-    Save money on your online subscriptions. Join Divvy!
-  </p>
+<div class="center splash">
+  <h1>What's Playing?</h1>
+  <!-- <h2>This is Divvy</h2> -->
+  <div class="card-deck">
+  <div class="card">
+        <img class="card-img-top menu-card" src="/block1.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Buy Subscription</h5>
+        </div>
+  </div>
+  <div class="card">
+        <img class="card-img-top menu-card" src="/block1.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Sell Subscription</h5>
+        </div>
+  </div>
+  <div class="card">
+        <img class="card-img-top menu-card" src="/block1.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">More Options</h5>
+        </div>
+  </div>
+  <div class="card">
+        <img class="card-img-top menu-card" src="/block1.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">More Options</h5>
+        </div>
+  </div>
+  </div>
+  <h1 class="sub">
+    Save money on your online subscriptions. Join Shareflix!
+  </h1>
   <%= link_to "Sign up now!", '#', class: "btn btn-lg btn-primary" %>
 </div>
 

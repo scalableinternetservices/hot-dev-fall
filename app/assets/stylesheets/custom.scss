@@ -4,7 +4,35 @@
 /* universal */
 
 body {
-  padding-top: 60px;
+//   padding-top: 20px;
+  background-color: #141414;
+}
+
+.navbar {
+    margin-left: 50px;
+    margin-right: 50px;
+    background-color: #141414;
+}
+
+nav {
+    background-color: #141414;
+}
+
+a {
+    color: lightgray
+}
+
+.card {
+    width: 20%;
+    display: inline-block
+}
+
+.card-deck {
+    margin-top: 5%;
+}
+
+.container {
+    padding: 50px;
 }
 
 section {
@@ -13,6 +41,30 @@ section {
 
 textarea {
   resize: vertical;
+}
+
+.sub {
+    font-size: 2em;
+    letter-spacing: -1px;
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: 400;
+}
+
+.splash {
+    color: white;
+    display: block;
+    margin-top: 25%;
+}
+
+.menu-card {
+    height: 150px;
+    width: 150px;
+}
+
+.logo {
+    height: 35px;
+    margin-top: 10px;
 }
 
 .center {

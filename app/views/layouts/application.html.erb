@@ -12,18 +12,14 @@
     <![endif]-->
   </head>
   <body>
-    <header class="navbar navbar-fixed-top navbar-inverse">
-      <div class="container">
-        <%= link_to "Divvy App", '#', id: "logo" %>
-        <nav>
+        <nav class="navbar navbar-fixed-top">
+          <img src="/logo.png" class="logo"></img>
           <ul class="nav navbar-nav navbar-right">
-            <li><%= link_to "Home",   '#' %></li>
-            <li><%= link_to "Help",   '#' %></li>
-            <li><%= link_to "Log in", '#' %></li>
+            <li class="nav-elem"><%= link_to "Home",   '#' %></li>
+            <li class="nav-elem"><%= link_to "Help",   '#' %></li>
+            <li class="nav-elem"><%= link_to "Log in", '#' %></li>
           </ul>
         </nav>
-      </div>
-    </header>
     <div class="container">
       <%= yield %>
     </div>

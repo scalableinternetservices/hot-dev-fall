@@ -1,14 +1,36 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>SubscriptionSharing</title>
+    <title><%= yield(:title) %> example</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
+      </script>
+    <![endif]-->
   </head>
-
   <body>
-    <%= yield %>
+        <nav class="navbar navbar-fixed-top">
+          <%= link_to image_tag("/logo.png"), "/" %>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="nav-elem"><%= link_to "Home",   '/' %></li>
+            <li class="nav-elem"><%= link_to "Help",   '/help' %></li>
+            <% if user_signed_in? %>
+                <div class="dropdown">
+                    <button class="dropbtn"><%= current_user.email %></button>
+                    <div class="dropdown-content">
+                        <%= link_to "Log out", '/logout' %>
+                    </div>
+                </div>
+            <% else %>
+                <li class="nav-elem"><%= link_to "Log in", '/login' %></li>
+            <% end %>
+          </ul>
+        </nav>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>

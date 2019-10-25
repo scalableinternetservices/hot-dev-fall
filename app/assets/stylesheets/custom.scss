@@ -1,0 +1,121 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+/* universal */
+
+body {
+//   padding-top: 20px;
+  background-color: #141414;
+}
+
+.navbar {
+    margin-left: 50px;
+    margin-right: 50px;
+    background-color: #141414;
+}
+
+nav {
+    background-color: #141414;
+}
+
+a {
+    color: lightgray
+}
+
+.card {
+    width: 20%;
+    display: inline-block
+}
+
+.card-deck {
+    margin-top: 5%;
+}
+
+.container {
+    padding: 50px;
+}
+
+section {
+  overflow: auto;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.sub {
+    font-size: 2em;
+    letter-spacing: -1px;
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: 400;
+}
+
+.splash {
+    color: white;
+    display: block;
+    margin-top: 25%;
+}
+
+.menu-card {
+    height: 150px;
+    width: 150px;
+}
+
+.logo {
+    height: 35px;
+    margin-top: 10px;
+}
+
+.center {
+  text-align: center;
+}
+
+.center h1 {
+  margin-bottom: 10px;
+}
+
+/* typography */
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+}
+
+h1 {
+  font-size: 3em;
+  letter-spacing: -2px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.2em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: normal;
+  color: #777;
+}
+
+p {
+  font-size: 1.1em;
+  line-height: 1.7em;
+}
+
+/* header */
+
+#logo {
+  float: left;
+  margin-right: 10px;
+  font-size: 1.7em;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  padding-top: 9px;
+  font-weight: bold;
+}
+
+#logo:hover {
+  color: #fff;
+  text-decoration: none;
+}

@@ -13,11 +13,20 @@
   </head>
   <body>
         <nav class="navbar navbar-fixed-top">
-          <img src="/logo.png" class="logo"></img>
+          <%= link_to image_tag("/logo.png"), "/" %>
           <ul class="nav navbar-nav navbar-right">
-            <li class="nav-elem"><%= link_to "Home",   '#' %></li>
-            <li class="nav-elem"><%= link_to "Help",   '#' %></li>
-            <li class="nav-elem"><%= link_to "Log in", '/login' %></li>
+            <li class="nav-elem"><%= link_to "Home",   '/' %></li>
+            <li class="nav-elem"><%= link_to "Help",   '/help' %></li>
+            <% if user_signed_in? %>
+                <div class="dropdown">
+                    <button class="dropbtn"><%= current_user.email %></button>
+                    <div class="dropdown-content">
+                        <%= link_to "Log out", '/logout' %>
+                    </div>
+                </div>
+            <% else %>
+                <li class="nav-elem"><%= link_to "Log in", '/login' %></li>
+            <% end %>
           </ul>
         </nav>
     <div class="container">

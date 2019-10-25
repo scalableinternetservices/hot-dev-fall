@@ -8,9 +8,13 @@ Rails.application.routes.draw do
   get 'static_pages/help'
   get 'static_pages/home'
 
+  get '/about', to: redirect('static_pages/about')
+  get '/help', to: redirect('static_pages/help')
+
   devise_scope :user do
     match '/login' => "devise/sessions#new", :as => :login, :via => [:get, :post]
     match '/signup' => "devise/registrations#new", :as => :signup, :via => [:get, :post]
+    match '/logout' => "devise/sessions#destroy", :as => :logout, :via => [:get, :post]
   end
 
 end

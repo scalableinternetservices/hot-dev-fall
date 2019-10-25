@@ -1,0 +1,108 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+/* User sign in and sign forms. */
+.border-form-div {
+  max-width: 400px;
+  padding: 19px 29px 29px;
+  margin: 0 auto 20px;
+  border: 1px solid #e5e5e5;
+  -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+     -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+          box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+.border-form-div .form-signin-heading,
+.border-form-div .checkbox {
+  margin-bottom: 10px;
+}
+.border-form-div input[type="text"],
+.border-form-div input[type="email"],
+.border-form-div input[type="password"] {
+  font-size: 16px;
+  height: auto;
+  margin-bottom: 15px;
+  padding: 7px 9px;
+  width: 80%;
+  border-radius: 5px;
+  outline-style:inset;
+  border-style: none;
+
+}
+
+.new_user label {
+    color: #fff
+}
+
+.login-title {
+    color: rgb(203,51,50);
+    font-size: 150%;
+}
+
+.actions input {
+    margin: auto;
+}
+
+.username-tab {
+    pointer-events: none
+}
+
+/* Dropdown Button */
+.dropbtn {
+  background-color: transparent;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #3e8e41;}

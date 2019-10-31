@@ -8,4 +8,7 @@ class StaticPagesController < ApplicationController
   def home
   end
   
+  def dataform
+  end
+  
 end

@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   get 'static_pages/home'
   get 'static_pages/usertype'
   get 'static_pages/joinerinfo'
-   get 'static_pages/sharerinfo'
+  get 'static_pages/sharerinfo'
+  
+  post 'static_pages/home'
 
   get '/about', to: redirect('static_pages/about')
   get '/help', to: redirect('static_pages/help')

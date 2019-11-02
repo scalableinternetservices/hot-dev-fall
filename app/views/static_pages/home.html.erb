@@ -1,8 +1,12 @@
 
 <% provide(:title, "Home") %>
 <div class="center splash">
-  <h1 class="sub">
-    Save money on your online subscriptions. Join Shareflix!
-  </h1>
-  <%= link_to "Sign up now!", '/signup', class: "btn btn-lg btn-primary" %>
+  <% if ! user_signed_in? %>
+      <h1 class="sub">
+        Save money on your online subscriptions. Join Shareflix!
+      </h1>
+    <%= link_to "Sign up now!", '/signup', class: "btn btn-lg btn-primary" %>
+  <% else %>
+    <h1>Welcome <%= current_user.email %></h1>
+  <% end %>
 </div>

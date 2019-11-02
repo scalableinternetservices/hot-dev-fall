@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Joiners</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sharer</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @joiners.each do |joiner| %>
+      <tr>
+        <td><%= joiner.sharer %></td>
+        <td><%= link_to 'Show', joiner %></td>
+        <td><%= link_to 'Edit', edit_joiner_path(joiner) %></td>
+        <td><%= link_to 'Destroy', joiner, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Joiner', new_joiner_path %>

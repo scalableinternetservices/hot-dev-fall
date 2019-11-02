@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Sharers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sharers.each do |sharer| %>
+      <tr>
+        <td><%= link_to 'Show', sharer %></td>
+        <td><%= link_to 'Edit', edit_sharer_path(sharer) %></td>
+        <td><%= link_to 'Destroy', sharer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sharer', new_sharer_path %>

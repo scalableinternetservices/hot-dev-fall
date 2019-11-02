@@ -4,7 +4,7 @@
     Let's find a group for you to join!
   </h1>
   <h2 class="login-title">First, tell us a little about yourself...</h2>
-  <%= form_for(Joiner.new, url: static_pages_home_path) do |f| %>
+  <%= form_for(@joiner) do |f| %>
       <%= f.text_field :firstname, :autofocus => true, :placeholder => 'First name' %><br />
       <%= f.text_field :lastname, :placeholder => 'Lastname' %><br />
       <% if user_signed_in? %>

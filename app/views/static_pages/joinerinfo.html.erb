@@ -9,7 +9,7 @@
       <%= f.text_field :firstname, :autofocus => true, :placeholder => 'First name' %><br />
       <%= f.text_field :lastname, :placeholder => 'Lastname' %><br />
       <% if user_signed_in? %>
-        <%= f.text_field :email, :value => current_user.email %>
+        <%= f.text_field :email, :readonly => true, :value => current_user.email %>
       <% end %>
       <%= f.submit "Submit", :class=>'btn btn-primary' %>
   <% end %>

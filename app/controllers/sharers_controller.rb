@@ -32,8 +32,7 @@ class SharersController < ApplicationController
     end
     respond_to do |format|
       if @sharer.save
-          print "HIIIIII"
-          format.html { redirect_to @sharer }
+          format.html { redirect_to "/" }
           format.json { render :show, status: :ok, location: @sharer }
       else
           format.html { render :new }

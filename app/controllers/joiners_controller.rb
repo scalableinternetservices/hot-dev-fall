@@ -26,9 +26,9 @@ class JoinersController < ApplicationController
   # POST /joiners.json
   def create
     @joiner = Joiner.new(joiner_params)
-
+    print joiner_params
     if @joiner.save
-      redirect_to @joiner
+      redirect_to "/"
     else
       render 'new'
     end
@@ -66,6 +66,6 @@ class JoinersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def joiner_params
-      params.require(:joiner).permit(:sharer)
+      params.require(:joiner).permit(:firstname, :lastname, :email)
     end
 end

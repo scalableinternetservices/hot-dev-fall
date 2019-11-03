@@ -25,14 +25,19 @@ class SharersController < ApplicationController
   # POST /sharers.json
   def create
     @sharer = Sharer.new(sharer_params)
-
+    if @sharer.plantype == 'Standard'
+        @sharer.planfull = @sharer.current_member_count >= 2
+    else
+        @sharer.planfull = @sharer.current_member_count >= 4
+    end
     respond_to do |format|
       if @sharer.save
-        format.html { redirect_to @sharer, notice: 'Sharer was successfully created.' }
-        format.json { render :show, status: :created, location: @sharer }
+          print "HIIIIII"
+          format.html { redirect_to @sharer }
+          format.json { render :show, status: :ok, location: @sharer }
       else
-        format.html { render :new }
-        format.json { render json: @sharer.errors, status: :unprocessable_entity }
+          format.html { render :new }
+          format.json { }
       end
     end
   end
@@ -70,5 +75,6 @@ class SharersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def sharer_params
       params.fetch(:sharer, {})
+      params.require(:sharer).permit(:firstname, :lastname, :email, :password, :planfull)
     end
 end

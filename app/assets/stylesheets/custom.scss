@@ -9,11 +9,14 @@ body {
 }
 
 .navbar {
-    margin-left: 50px;
+    margin-left: 20px;
     margin-right: 50px;
     background-color: #141414;
 }
 
+.default-color {
+  color: white;
+}
 nav {
     background-color: #141414;
 }
@@ -32,7 +35,9 @@ a {
 }
 
 .container {
-    padding: 50px;
+  top: 100px;
+  position: relative;
+  padding: 50px;
 }
 
 section {
@@ -49,6 +54,34 @@ textarea {
     margin-bottom: 30px;
     text-align: center;
     font-weight: 400;
+}
+
+//=================== BORDER FORM=============================
+.border-form-holder {
+  position: absolute;
+  max-width: 400px;
+  top: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.border-form-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+
+}
+
+.top-relative-style {
+  top: 100px;
+  position: relative;
+}
+
+//==================JOINERS & SHARERS=================
+.new_joiner, .new_sharer, .new_user {
+  text-align: center;
 }
 
 .splash {
@@ -84,7 +117,6 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
   font-size: 3em;
   letter-spacing: -2px;
-  margin-bottom: 30px;
   text-align: center;
 }
 

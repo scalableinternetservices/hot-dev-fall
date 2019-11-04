@@ -1,19 +1,21 @@
 <% provide(:title, "SharerInfo") %>
-<div class="border-form-div">
-  <h1>
-    Let's find others to share your plan!
-  </h1>
-  <h2 class="login-title">First, tell us a little about yourself...</h2>
-  <%= form_for(@sharer) do |f| %>
-      <%= f.text_field :firstname, :autofocus => true, :placeholder => 'First name' %><br />
-      <%= f.text_field :lastname, :placeholder => 'Lastname' %><br />
-      <% if user_signed_in? %>
-        <%= f.text_field :email, :readonly => true, :value => current_user.email%>
-      <% end %>
-      <div class="dropdown">
-        <%= f.select(:plantype, ['Standard', 'Premium'], {include_blank: "Choose plan type"}, {})%><br />
-      </div><br />
-      <%= f.text_field :current_member_count, data: { numeric: true }, :placeholder => 'Current user count (including you)' %><br />
-      <%= f.submit "Submit", :class=>'btn btn-primary' %>
-  <% end %>
+<div class="border-form-holder">
+  <div class="border-form-div">
+    <h1 class="default-color">
+      Let's find others to share your plan!
+    </h1>
+    <h2 class="login-title">First, tell us a little about yourself...</h2>
+    <%= form_for(@sharer) do |f| %>
+        <%= f.text_field :firstname, :autofocus => true, :placeholder => 'First name' %><br />
+        <%= f.text_field :lastname, :placeholder => 'Lastname' %><br />
+        <% if user_signed_in? %>
+          <%= f.text_field :email, :readonly => true, :value => current_user.email%>
+        <% end %>
+        <div class="dropdown">
+          <%= f.select(:plantype, ['Standard', 'Premium'], {include_blank: "Choose plan type"}, {})%><br />
+        </div><br />
+        <%= f.text_field :current_member_count, data: { numeric: true }, :placeholder => 'Current user count (including you)' %><br />
+        <%= f.submit "Submit", :class=>'btn btn-primary' %>
+    <% end %>
+  </div>
 </div>

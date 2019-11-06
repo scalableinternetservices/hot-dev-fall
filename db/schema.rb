@@ -25,10 +25,10 @@ ActiveRecord::Schema.define(version: 20191106174606) do
   end
 
   create_table "joiners", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "firstname", default: "", null: false
     t.string "lastname", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "email", default: "", null: false
     t.string "matched", default: "", null: false
     t.string "host_email", default: "", null: false

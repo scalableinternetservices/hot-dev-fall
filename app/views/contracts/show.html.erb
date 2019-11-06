@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Sharer:</strong>
+  <%= @contract.sharer %>
+</p>
+
+<p>
+  <strong>Joiners:</strong>
+  <%= @contract.joiners %>
+</p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @contract.username %>
+</p>
+
+<p>
+  <strong>Password:</strong>
+  <%= @contract.password %>
+</p>
+
+<%= link_to 'Edit', edit_contract_path(@contract) %> |
+<%= link_to 'Back', contracts_path %>

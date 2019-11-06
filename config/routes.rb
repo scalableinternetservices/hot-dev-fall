@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'static_pages#home'
 
-  resources :joiners, :sharers
+  resources :joiners, :sharers, :contracts
 
   get 'static_pages/about'
   get 'static_pages/help'
@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get '/help', to: redirect('static_pages/help')
   get '/joiner', to: 'joiners#new'
   get '/sharer', to: 'sharers#new'
+  get '/contract', to: 'contracts#new'
 
   devise_scope :user do
     match '/login' => "devise/sessions#new", :as => :login, :via => [:get, :post]

@@ -17,7 +17,7 @@ class ContractsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create contract" do
     assert_difference('Contract.count') do
-      post contracts_url, params: { contract: { joiners: @contract.joiners, password: @contract.password, sharer: @contract.sharer, username: @contract.username } }
+      post contracts_url, params: { contract: { joiners_id: @contract.joiners_id, password: @contract.password, sharer_id: @contract.sharer_id, username: @contract.username } }
     end
 
     assert_redirected_to contract_url(Contract.last)
@@ -34,7 +34,7 @@ class ContractsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update contract" do
-    patch contract_url(@contract), params: { contract: { joiners: @contract.joiners, password: @contract.password, sharer: @contract.sharer, username: @contract.username } }
+    patch contract_url(@contract), params: { contract: { joiners_id: @contract.joiners_id, password: @contract.password, sharer_id: @contract.sharer_id, username: @contract.username } }
     assert_redirected_to contract_url(@contract)
   end
 

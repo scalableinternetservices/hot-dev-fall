@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  sharer: 1
-  joiners: 1
+  sharer: one
+  joiners: one
   username: MyString
   password: MyString
 
 two:
-  sharer: 1
-  joiners: 1
+  sharer: two
+  joiners: two
   username: MyString
   password: MyString

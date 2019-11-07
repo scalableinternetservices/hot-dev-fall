@@ -1,18 +1,17 @@
 
-<div class="border-form-holder">
-  <div class="border-form-div">
-    <h2>Forgot your password?</h2>
-
+<div class="border-form-div">
+  <div class="login-form">
+    <h3 class="login-title">Forgot Password</h3>
+    <p class="default-color"> We will send you an email with instructions on how to reset your password. </p>
     <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
 
       <div class="field">
-        <%= f.label :email %><br />
-        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "name@example.com" %>
       </div>
 
       <div class="actions">
-        <%= f.submit "Send me reset password instructions" %>
+        <%= f.submit "Email Me", :class => 'signin_button btn-primary' %>
       </div>
     <% end %>
 

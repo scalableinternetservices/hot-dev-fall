@@ -7,7 +7,7 @@
     <h2 class="login-title">First, tell us a little about yourself...</h2>
     <%= form_for(@joiner) do |f| %>
         <%= f.text_field :firstname, :autofocus => true, :placeholder => 'First name' %><br />
-        <%= f.text_field :lastname, :placeholder => 'Lastname' %><br />
+        <%= f.text_field :lastname, :placeholder => 'Last name' %><br />
         <% if user_signed_in? %>
           <%= f.text_field :email, :readonly => true, :value => current_user.email %>
         <% end %>

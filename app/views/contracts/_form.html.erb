@@ -12,26 +12,27 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :sharer_id %>
+    <%= form.label :sharer_id, class: 'default-color' %>
     <%= form.text_field :sharer_id, id: :contract_sharer_id %>
   </div>
 
   <div class="field">
-    <%= form.label :joiners_id %>
+    <%= form.label :joiners_id, class: 'default-color' %>
     <%= form.text_field :joiners_id, id: :contract_joiners_id %>
   </div>
 
   <div class="field">
-    <%= form.label :username %>
+    <%= form.label :username , class: 'default-color'%>
     <%= form.text_field :username, id: :contract_username %>
   </div>
 
   <div class="field">
-    <%= form.label :password %>
-    <%= form.text_field :password, id: :contract_password %>
+    <%= form.label :password , class: 'default-color'%>
+    <%= form.password_field  :password, id: :contract_password %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Create Contract", :class => 'signin_button' %>
   </div>
+  
 <% end %>

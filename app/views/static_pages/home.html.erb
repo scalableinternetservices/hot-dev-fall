@@ -5,6 +5,10 @@
         Save money on your online subscriptions. Join Shareflix!
       </h1>
     <%= link_to "Sign up now!", '/signup', class: "btn btn-lg btn-primary" %>
+      <p>
+        Already have an account? Login here:
+      </p>
+    <%= link_to "Log in", '/login', class: "btn btn-lg btn-primary" %>
   <% else %>
     <% if @need_further_setup %>
         <h1 class="sub">

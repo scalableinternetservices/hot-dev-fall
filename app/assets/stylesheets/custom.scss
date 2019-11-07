@@ -70,8 +70,21 @@ textarea {
   flex-direction: column;
   justify-content: center;
   align-content: center;
-  text-align: center;
+  // text-align: center;
 
+}
+
+
+//===================LOGIN FORM=================================
+.login-form {
+  position: relative;
+  width: 80%;
+  left: 50%;
+  transform: translateX(-50%)
+}
+
+.login-title {
+  margin-bottom: 28px;
 }
 
 .top-relative-style {
@@ -79,15 +92,28 @@ textarea {
   position: relative;
 }
 
-//==================JOINERS & SHARERS=================
-.new_joiner, .new_sharer, .new_user {
-  text-align: center;
+.form-control {
+  width: 100%;
 }
+
+.password-box {
+  margin-bottom: 70px !important;
+}
+.signin_button {
+  width: 100%;
+  height: 50px;
+  background-color: red;
+  font-size: 16px;
+  border-radius: 5px;
+  color: white;
+  margin-bottom: 16px;
+}
+//==================JOINERS & SHARERS=================
 
 .splash {
     color: white;
     display: block;
-    margin-top: 25%;
+    margin-top: 20%;
 }
 
 .menu-card {

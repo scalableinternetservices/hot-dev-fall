@@ -38,10 +38,10 @@
 .border-form-div input[type="email"],
 .border-form-div input[type="password"] {
   font-size: 16px;
-  height: auto;
-  margin-bottom: 15px;
-  padding: 7px 9px;
-  width: 80%;
+  height: 50px;
+  margin-bottom: 18px;
+  min-width: 100%;
+  padding: 0px 20px;
   border-radius: 5px;
   outline-style:inset;
   border-style: none;
@@ -53,12 +53,8 @@
 }
 
 .login-title {
-    color: rgb(203,51,50);
-    font-size: 22px;
-}
-
-.actions input {
-    margin: auto;
+    color: white;
+    font-size: 30px;
 }
 
 .username-tab {

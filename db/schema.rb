@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191106174606) do
+ActiveRecord::Schema.define(version: 20191108034014) do
 
   create_table "contracts", force: :cascade do |t|
     t.integer "sharer_id"
@@ -25,28 +25,20 @@ ActiveRecord::Schema.define(version: 20191106174606) do
   end
 
   create_table "joiners", force: :cascade do |t|
-    t.string "firstname", default: "", null: false
-    t.string "lastname", default: "", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "email", default: "", null: false
-    t.string "matched", default: "", null: false
-    t.string "host_email", default: "", null: false
-    t.index ["email"], name: "index_joiners_on_email", unique: true
+    t.integer "user_id"
+    t.string "service"
+    t.string "status"
+    t.index ["user_id"], name: "index_joiners_on_user_id"
   end
 
   create_table "sharers", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "firstname", default: "", null: false
-    t.string "lastname", default: "", null: false
-    t.string "email", default: "", null: false
-    t.string "plantype", default: "", null: false
-    t.integer "max_member_count", default: 0, null: false
-    t.integer "current_member_count", default: 0, null: false
-    t.boolean "planfull", null: false
-    t.string "members", default: "", null: false
-    t.index ["email"], name: "index_sharers_on_email", unique: true
+    t.integer "user_id"
+    t.string "service"
+    t.integer "size"
+    t.string "account_id"
+    t.string "account_password"
+    t.string "status"
+    t.index ["user_id"], name: "index_sharers_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

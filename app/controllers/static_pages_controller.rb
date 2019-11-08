@@ -7,7 +7,7 @@ class StaticPagesController < ApplicationController
 
   def home
       @user = User.find_by(params[:id])
-      if @user.usertype == ""
+      if @user.nil? || @user.usertype == ""
           @need_further_setup = true
       end
   end

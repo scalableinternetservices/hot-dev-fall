@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20191108060032) do
     t.integer "joiner_uid"
     t.integer "account_id"
     t.integer "account_password"
-    t.index ["created_at"], name: "index_contracts_on_sharer_and_created_at"
+    t.index ["created_at"], name: "index_contracts_on_sharer_id_and_created_at"
     t.index ["joiner_uid"], name: "index_contracts_on_joiner_uid"
     t.index ["sharer_id"], name: "index_contracts_on_sharer_id"
     t.index ["sharer_uid"], name: "index_contracts_on_sharer_uid"

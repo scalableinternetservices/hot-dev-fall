@@ -28,8 +28,19 @@ class SharersController < ApplicationController
 
     respond_to do |format|
       if @sharer.save
+          # TODO: Matching algorithm
+          joiners = Joiner.order(:created_at).first(@sharer.size)
+          if joiners.length > 0
+            @sharer.size = @sharer.size - joiners.length
+            @sharer.save
 
-        # TODO: Matching algorithm
+            joiners.each do |j|
+              #create the contracts
+              @contract = Contract.new(sharer_id:@sharer.id, sharer_uid: @sharer.user_id, joiner_uid: j.user_id, account_id: @sharer.account_id, account_password: @sharer.account_password)
+              @contract.save
+            end
+          end
+
 
           format.html { redirect_to "/" }
           format.json { render :show, status: :ok, location: @sharer }

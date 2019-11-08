@@ -1,7 +1,7 @@
 class ConvertSharersToShareQuery < ActiveRecord::Migration[5.1]
   def change
-    remove_column :sharers, :created_at
-    remove_column :sharers, :updated_at
+    # remove_column :sharers, :created_at
+    # remove_column :sharers, :updated_at
     remove_column :sharers, :firstname
     remove_column :sharers, :lastname
     remove_column :sharers, :max_member_count

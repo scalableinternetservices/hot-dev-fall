@@ -1,17 +1,9 @@
-<% provide(:title, "JoinerInfo") %>
-<div class="border-form-holder">
-  <div class="border-form-div">
-    <h1 class="default-color">
-      Let's find a group for you to join!
-    </h1>
-    <h2 class="login-title">First, tell us a little about yourself...</h2>
-    <%= form_for(@joiner) do |f| %>
-        <%= f.text_field :firstname, :autofocus => true, :placeholder => 'First name' %><br />
-        <%= f.text_field :lastname, :placeholder => 'Last name' %><br />
-        <% if user_signed_in? %>
-          <%= f.text_field :email, :readonly => true, :value => current_user.email %>
-        <% end %>
-        <%= f.submit "Submit", :class=>'btn btn-primary' %>
-    <% end %>
-  </div>
-</div>
+  <div class="login-form">
+
+    <h1 class="default-color">Join a plan</h1>
+
+    <%= render 'form', joiner: @joiner %>
+
+    <%= link_to 'Back', joiners_path %>
+
+    </div>

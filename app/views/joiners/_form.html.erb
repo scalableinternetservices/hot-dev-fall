@@ -11,6 +11,12 @@
     </div>
   <% end %>
 
+  <div class="field">
+    <%= form.hidden_field :service, :value => "Netflix" %>
+    <%= form.hidden_field :user_id, :value => current_user.id %>
+    <%= form.hidden_field :status, :value => "Pending" %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

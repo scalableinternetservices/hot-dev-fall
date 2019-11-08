@@ -17,15 +17,17 @@
 
           </br>
           <% @my_share_requests.each do |request| -%>
-            <div>
-                <div class="homepage-info-card">
-                    <div class="homepage-info-card-container">
-                          <h4><b><%= request.service %></b></h4>
-                          <p>Account username/email: <b><%= request.account_id %></b></p>
-                          <p>Number of spots left in the plan: <b><%= request.size %></b></p>
-                    </div>
-                </div>
+
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h4><b><%= request.service %></b></h4>
+                <p>Account username/email: <b><%= request.account_id %></b></p>
+                <p>Number of spots left in the plan: <b><%= request.size %></b></p>
+                
+              </div>
             </div>
+
+        </div>
           <% end -%>
       </div>
       <div>

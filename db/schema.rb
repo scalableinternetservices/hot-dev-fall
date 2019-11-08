@@ -13,17 +13,22 @@
 ActiveRecord::Schema.define(version: 20191108060032) do
 
   create_table "contracts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "sharer_id"
     t.integer "sharer_uid"
     t.integer "joiner_uid"
     t.integer "account_id"
     t.integer "account_password"
+    t.index ["created_at"], name: "index_contracts_on_sharer_and_created_at"
     t.index ["joiner_uid"], name: "index_contracts_on_joiner_uid"
     t.index ["sharer_id"], name: "index_contracts_on_sharer_id"
     t.index ["sharer_uid"], name: "index_contracts_on_sharer_uid"
   end
 
   create_table "joiners", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "user_id"
     t.string "service"
     t.string "status"
@@ -31,6 +36,8 @@ ActiveRecord::Schema.define(version: 20191108060032) do
   end
 
   create_table "sharers", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "user_id"
     t.string "service"
     t.integer "size"

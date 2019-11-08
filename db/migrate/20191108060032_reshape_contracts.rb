@@ -4,8 +4,8 @@ class ReshapeContracts < ActiveRecord::Migration[5.1]
     remove_column :contracts, :joiners_id
     remove_column :contracts, :username
     remove_column :contracts, :password
-    remove_column :contracts, :created_at
-    remove_column :contracts, :updated_at
+    # remove_column :contracts, :created_at
+    # remove_column :contracts, :updated_at
     
     add_reference :contracts, :sharer
     

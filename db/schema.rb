@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(version: 20191108034014) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["joiners_id"], name: "index_contracts_on_joiners_id"
+    t.index ["sharer_id", "created_at"], name: "index_contracts_on_sharer_id_and_created_at"
     t.index ["sharer_id"], name: "index_contracts_on_sharer_id"
-    t.index [nil, "created_at"], name: "index_contracts_on_sharer_and_created_at"
   end
 
   create_table "joiners", force: :cascade do |t|

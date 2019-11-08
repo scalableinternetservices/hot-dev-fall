@@ -10,13 +10,46 @@
       </p>
     <%= link_to "Log in", '/login', class: "btn btn-lg btn-primary" %>
   <% else %>
-    <% if @need_further_setup %>
-        <h1 class="sub">
-            Looks like you haven't finished setting up your account.
-        </h1>
-        <%= link_to "Click here to finish setting up", '/static_pages/usertype', class: "btn btn-lg btn-primary" %>
-    <% else %>
-        <h1>Welcome <%= current_user.email %></h1>
-    <% end %>
+      <%= link_to "Share my plan", '/sharer', class: "btn btn-lg btn-primary" %>
+      <%= link_to "Join a plan", '/joiner', class: "btn btn-lg btn-primary" %>
+      <div>
+         <h1> Accounts you are looking to share: </h1>
+
+          </br>
+          <% @my_share_requests.each do |request| -%>
+            <div>
+                <div class="homepage-info-card">
+                    <div class="homepage-info-card-container">
+                          <h4><b><%= request.service %></b></h4>
+                          <p>Account username/email: <b><%= request.account_id %></b></p>
+                          <p>Number of spots left in the plan: <b><%= request.size %></b></p>
+                    </div>
+                </div>
+            </div>
+          <% end -%>
+      </div>
+      <div>
+         <h1> Pending join requests: </h1>
+          <% @my_join_requests.each do |request| -%>
+            <div>
+                <div class="homepage-info-card">
+                    <div class="homepage-info-card-container">
+                          <h4><b><%= request.service %></b></h4>
+                          <p>Request submitted on: <b><%= request.created_at %></b></p>
+                    </div>
+                </div>
+            </div>
+          <% end -%>
+      </div>
+      <% if @my_contracts_shared.length > 0 %>
+          <div>
+              You are currently sharing <%= @my_contracts_shared.length %> accounts
+          </div>
+      <%end %>
+      <% if @my_contracts_joined.length > 0 %>
+          <div>
+              You are currently sharing <%= @my_contracts_joined.length %> accounts
+          </div>
+      <%end%>
   <% end %>
 </div>

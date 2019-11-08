@@ -25,13 +25,12 @@ class SharersController < ApplicationController
   # POST /sharers.json
   def create
     @sharer = Sharer.new(sharer_params)
-    if @sharer.plantype == 'Standard'
-        @sharer.planfull = @sharer.current_member_count >= 2
-    else
-        @sharer.planfull = @sharer.current_member_count >= 4
-    end
+
     respond_to do |format|
       if @sharer.save
+
+        # TODO: Matching algorithm
+
           format.html { redirect_to "/" }
           format.json { render :show, status: :ok, location: @sharer }
       else
@@ -44,25 +43,25 @@ class SharersController < ApplicationController
   # PATCH/PUT /sharers/1
   # PATCH/PUT /sharers/1.json
   def update
-    respond_to do |format|
-      if @sharer.update(sharer_params)
-        format.html { redirect_to @sharer, notice: 'Sharer was successfully updated.' }
-        format.json { render :show, status: :ok, location: @sharer }
-      else
-        format.html { render :edit }
-        format.json { render json: @sharer.errors, status: :unprocessable_entity }
-      end
-    end
+    # respond_to do |format|
+    #   if @sharer.update(sharer_params)
+    #     format.html { redirect_to @sharer, notice: 'Sharer was successfully updated.' }
+    #     format.json { render :show, status: :ok, location: @sharer }
+    #   else
+    #     format.html { render :edit }
+    #     format.json { render json: @sharer.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # DELETE /sharers/1
   # DELETE /sharers/1.json
   def destroy
-    @sharer.destroy
-    respond_to do |format|
-      format.html { redirect_to sharers_url, notice: 'Sharer was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    # @sharer.destroy
+    # respond_to do |format|
+    #   format.html { redirect_to sharers_url, notice: 'Sharer was successfully destroyed.' }
+    #   format.json { head :no_content }
+    # end
   end
 
   private
@@ -74,6 +73,6 @@ class SharersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def sharer_params
       params.fetch(:sharer, {})
-      params.require(:sharer).permit(:firstname, :lastname, :email, :password, :planfull)
+      params.require(:sharer).permit(:service, :size, :sharer, :account_id, :account_password, :user_id, :status)
     end
 end

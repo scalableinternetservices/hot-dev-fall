@@ -11,6 +11,23 @@
     </div>
   <% end %>
 
+  <div class="field">
+    <%= form.hidden_field :service, :value => "Netflix" %>
+
+    <%= form.label :size, "Which plan do you have?", class: 'default-color' %>
+
+    <%= select(:sharer, :size, [['Standard', 1], ['Premium', 3], ]) %>
+
+    <%= form.label :account_id, "What is your account username", class: 'default-color' %>
+    <%= form.text_field :account_id%>
+
+    <%= form.label :account_password, "What is your account password", class: 'default-color' %>
+    <%= form.text_field :account_password%>
+
+    <%= form.hidden_field :user_id, :value => current_user.id %>
+    <%= form.hidden_field :status, :value => "Pending" %>
+  </div>
+  
   <div class="actions">
     <%= form.submit %>
   </div>

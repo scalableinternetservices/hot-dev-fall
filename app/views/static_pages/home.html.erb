@@ -10,13 +10,23 @@
       </p>
     <%= link_to "Log in", '/login', class: "btn btn-lg btn-primary" %>
   <% else %>
-    <% if @need_further_setup %>
-        <h1 class="sub">
-            Looks like you haven't finished setting up your account.
-        </h1>
-        <%= link_to "Click here to finish setting up", '/static_pages/usertype', class: "btn btn-lg btn-primary" %>
-    <% else %>
-        <h1>Welcome <%= current_user.email %></h1>
-    <% end %>
+      <%= link_to "Share my plan", '/sharer', class: "btn btn-lg btn-primary" %>
+      <%= link_to "Join a plan", '/joiner', class: "btn btn-lg btn-primary" %>
+      <div>
+          Accounts you are looking to share:
+          <%= @my_share_requests.length %>
+      </div>
+      <div>
+          Pending join requests:
+          <%= @my_join_requests.length %>
+      </div>
+      <div>
+          Your accounts that you are currently sharing
+          <%= @my_contracts_shared.length %>
+      </div>
+      <div>
+          Accounts that you have joined
+          <%= @my_contracts_joined.length %>
+      </div>
   <% end %>
 </div>

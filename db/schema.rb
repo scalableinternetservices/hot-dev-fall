@@ -10,18 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191108034014) do
+ActiveRecord::Schema.define(version: 20191108060032) do
 
   create_table "contracts", force: :cascade do |t|
     t.integer "sharer_id"
-    t.integer "joiners_id"
-    t.string "username"
-    t.string "password"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["joiners_id"], name: "index_contracts_on_joiners_id"
+    t.integer "sharer_uid"
+    t.integer "joiner_uid"
+    t.integer "account_id"
+    t.integer "account_password"
+    t.index ["joiner_uid"], name: "index_contracts_on_joiner_uid"
     t.index ["sharer_id"], name: "index_contracts_on_sharer_id"
-    t.index [nil, "created_at"], name: "index_contracts_on_sharer_and_created_at"
+    t.index ["sharer_uid"], name: "index_contracts_on_sharer_uid"
   end
 
   create_table "joiners", force: :cascade do |t|

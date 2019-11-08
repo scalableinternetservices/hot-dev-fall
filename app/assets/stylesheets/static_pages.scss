@@ -1,3 +1,20 @@
 // Place all the styles related to the StaticPages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.homepage-info-card {
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(1,1,1,0.4);
+  transition: 0.3s;
+  outline-color: white;
+}
+
+/* On mouse-over, add a deeper shadow */
+.homepage-info-card:hover {
+  box-shadow: 0 8px 16px 0 rgba(1,1,1,1);
+}
+
+/* Add some padding inside the card container */
+.homepage-info-card-container {
+  padding: 2px 16px;
+}

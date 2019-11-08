@@ -26,14 +26,17 @@ class JoinersController < ApplicationController
   # POST /joiners.json
   def create
     @joiner = Joiner.new(joiner_params)
-    print joiner_params
-
-    # TODO: Run matching algorithm
 
     if @joiner.save
+      # TODO: Run matching algorithm
+      sharer = Sharer.where("size > 0", 0).order(:created_at).first
+      unless sharer.nil?
+        @contract = Contract.new(sharer_id: sharer.id, sharer_uid: sharer.user_id, joiner_uid: @joiner.user_id, account_id: sharer.account_id, account_password: sharer.account_password)
+        @contract.save
+        sharer.size = sharer.size - 1
+        sharer.save
+      end
       redirect_to "/"
-    else
-      render 'new'
     end
   end
 

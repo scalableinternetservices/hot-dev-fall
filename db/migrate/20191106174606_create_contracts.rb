@@ -8,6 +8,6 @@ class CreateContracts < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
-    add_index :contracts, [:sharer, :created_at]
+    add_index :contracts, [:sharer_id, :created_at]
   end
 end

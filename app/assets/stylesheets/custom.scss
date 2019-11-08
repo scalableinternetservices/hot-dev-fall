@@ -6,6 +6,7 @@
 body {
 //   padding-top: 20px;
   background-color: #141414;
+  color: white;
 }
 
 .navbar {
@@ -17,6 +18,15 @@ body {
 .default-color {
   color: white;
 }
+
+select {
+  color: black;
+}
+
+input {
+  color: black;
+}
+
 nav {
     background-color: #141414;
 }

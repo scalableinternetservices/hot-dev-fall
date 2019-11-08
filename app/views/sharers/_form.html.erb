@@ -16,7 +16,7 @@
 
     <%= form.label :size, "Which plan do you have?", class: 'default-color' %>
 
-    <%= select(:sharer, :size, [['Standard', 1], ['Premium', 3], ]) %>
+    <%= select(:sharer, :size, [['Standard', 1], ['Premium', 3]]) %>
 
     <%= form.label :account_id, "What is your account username", class: 'default-color' %>
     <%= form.text_field :account_id%>
@@ -29,6 +29,6 @@
   </div>
   
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Create Sharer', :class => 'signin_button btn-primary'%>
   </div>
 <% end %>

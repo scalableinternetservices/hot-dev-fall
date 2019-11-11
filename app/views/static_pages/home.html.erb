@@ -13,44 +13,70 @@
       <%= link_to "Share my plan", '/sharer', class: "btn btn-lg btn-primary" %>
       <%= link_to "Join a plan", '/joiner', class: "btn btn-lg btn-primary" %>
       <div>
+      <% if @my_share_requests.length > 0 %>
          <h1> Accounts you are looking to share: </h1>
-
           </br>
-          <% @my_share_requests.each do |request| -%>
-
-            <div class="card" style="width: 18rem;">
-              <div class="card-body">
-                <h4><b><%= request.service %></b></h4>
-                <p>Account username/email: <b><%= request.account_id %></b></p>
-                <p>Number of spots left in the plan: <b><%= request.size %></b></p>
-                
-              </div>
-            </div>
-
-        </div>
-          <% end -%>
-      </div>
+          <div class="row">
+              <% @my_share_requests.each do |request| -%>
+                <div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                    <h4><b><%= request.service %></b></h4>
+                    <p>Account username/email: <b><%= request.account_id %></b></p>
+                    <p>Number of spots left in the plan: <b><%= request.size %></b></p>
+                  </div>
+                </div>
+              <% end -%>
+          </div>
+      <%end %>
       <div>
+      <% if @my_join_requests.length > 0 %>
          <h1> Pending join requests: </h1>
+         </br>
+         <div class="row">
           <% @my_join_requests.each do |request| -%>
             <div>
-                <div class="homepage-info-card">
-                    <div class="homepage-info-card-container">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
                           <h4><b><%= request.service %></b></h4>
                           <p>Request submitted on: <b><%= request.created_at %></b></p>
                     </div>
                 </div>
             </div>
           <% end -%>
+          </div>
+      <%end %>
       </div>
       <% if @my_contracts_shared.length > 0 %>
-          <div>
-              You are currently sharing <%= @my_contracts_shared.length %> accounts
+          <h1> Accounts you have shared with others: </h1>
+          </br>
+          <div class="row">
+              <% @my_contracts_shared.each do |contract| -%>
+                <div>
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h4><b><%= @service %></b></h4>
+                            <p><%= contract.sharer_uid %></p>
+                        </div>
+                    </div>
+                </div>
+              <% end -%>
           </div>
       <%end %>
       <% if @my_contracts_joined.length > 0 %>
-          <div>
-              You are currently sharing <%= @my_contracts_joined.length %> accounts
+          <h1> Accounts you have joined: </h1>
+          </br>
+          <div class="row">
+              <% @my_contracts_joined.each do |contract| -%>
+                <div>
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                              <h4><b> <%= @service %> </b></h4>
+                              <p>Username: <%= @account_name %></p>
+                              <%= link_to "Message account owner", '/', class: "btn btn-primary" %>
+                        </div>
+                    </div>
+                </div>
+              <% end -%>
           </div>
       <%end%>
   <% end %>

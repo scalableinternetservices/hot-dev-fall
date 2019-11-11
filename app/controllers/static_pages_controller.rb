@@ -7,20 +7,29 @@ class StaticPagesController < ApplicationController
 
   def home
       if user_signed_in?
-          @sharer = Sharer.find_by(params[:id])
-          @joiner = Joiner.find_by(params[:id])
-          @user = User.find_by(params[:id])
-          if @sharer.nil? && @joiner.nil?
+          sharer = Sharer.find_by(params[:id])
+          joiner = Joiner.find_by(params[:id])
+          @user = current_user
+
+          if sharer.nil? && joiner.nil?
               @need_further_setup = true
           else
               @my_contracts_shared = []
               Contract.where(sharer_uid: @user.id).find_each do |contract|
                 @my_contracts_shared.push(contract)
+                Sharer.where(user_id:contract.sharer_uid).find_each do |contract_creator|
+                    @service = contract_creator.service
+                    @account_name = contract_creator.account_id
+                end
               end
 
               @my_contracts_joined = []
               Contract.where(joiner_uid: @user.id).find_each do |contract|
                 @my_contracts_joined.push(contract)
+                Sharer.where(user_id:contract.sharer_uid).find_each do |contract_creator|
+                    @service = contract_creator.service
+                    @account_name = contract_creator.account_id
+                end
               end
 
               @my_share_requests = []

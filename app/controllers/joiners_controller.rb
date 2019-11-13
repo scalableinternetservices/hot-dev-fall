@@ -31,7 +31,7 @@ class JoinersController < ApplicationController
       unless Sharer.first.nil?
         sharer = Sharer.where("size > ? AND user_id != ? AND service == ?", 0, @joiner.user_id, @joiner.service).order(:created_at).first
         unless sharer.nil?
-          @contract = Contract.new(sharer_id: sharer.id, sharer_uid: sharer.user_id, joiner_uid: @joiner.user_id, account_id: sharer.account_id, account_password: sharer.account_password)
+          @contract = Contract.new(sharer_id: sharer.id, sharer_uid: sharer.user_id, joiner_uid: @joiner.user_id, account_id: sharer.account_id, account_password: sharer.account_password, price: 0)
           if @contract.save
             @joiner.status = "Complete"
             sharer.size = sharer.size - 1
@@ -40,6 +40,7 @@ class JoinersController < ApplicationController
             end
             @joiner.save
             sharer.save
+            update_contract_cost(sharer)
             puts "MATCHED JOINER #{@joiner.user_id} TO #{sharer.user_id}"
           end
         end
@@ -47,6 +48,19 @@ class JoinersController < ApplicationController
       redirect_to "/"
     end
   end
+
+  # Note the race condition
+  def update_contract_cost(sharer)
+    contracts = Contract.where(sharer_id: sharer.id)
+    new_price = sharer.plan_cost/(contracts.length + 1)
+
+    puts "Updating cost of #{contracts.length} contracts to new cost of #{new_price} for sharer #{sharer.id}"
+    contracts.each do |c|
+      c.price = new_price
+      c.save
+    end
+  end
+
 
   # PATCH/PUT /joiners/1
   # PATCH/PUT /joiners/1.json

@@ -30,27 +30,36 @@ class SharersController < ApplicationController
     service = sharer_params["service"]
     plan = sharer_params["size"]
 
+    computed_size = 1
+    computed_cost = 0.0
+
     if service == "Netflix" && plan == "Standard"
       computed_size = 1
+      computed_cost = 12.99
     end
 
     if service == "Netflix" && plan == "Premium"
       computed_size = 3
+      computed_cost = 15.99
     end
 
     if service == "Hulu" && plan == "Standard"
       computed_size = 1
+      computed_cost = 5.99
     end
 
     if service == "Hulu" && plan == "Premium"
       computed_size = 2
+      computed_cost = 11.99
     end
 
-    if service == "Prime Video"
-      computed_size = 2
+    if service == "Disney+"
+      computed_size = 3
+      computed_cost = 6.99
     end
 
     @sharer.size = computed_size
+    @sharer.plan_cost = computed_cost
 
     #sharer should have a pending status
     respond_to do |format|
@@ -65,12 +74,13 @@ class SharersController < ApplicationController
             @sharer.save
             joiners.each do |j|
               #create the contracts
-              @contract = Contract.new(sharer_id:@sharer.id, sharer_uid: @sharer.user_id, joiner_uid: j.user_id, account_id: @sharer.account_id, account_password: @sharer.account_password)
+              @contract = Contract.new(sharer_id:@sharer.id, sharer_uid: @sharer.user_id, joiner_uid: j.user_id, account_id: @sharer.account_id, account_password: @sharer.account_password, price: 0)
               @contract.save
               puts "MATCHED SHARER #{@sharer.user_id} TO #{j.user_id}"
               j.status = "Complete"
               j.save
             end
+            update_contract_cost(@sharer)
           end
         end
           format.html { redirect_to "/" }
@@ -79,6 +89,21 @@ class SharersController < ApplicationController
           format.html { render :new }
           format.json { }
       end
+    end
+  end
+
+  # Note the race condition
+  def update_contract_cost(sharer)
+    # find contracts with sharer_id
+    # use new size to update costs
+
+    contracts = Contract.where(sharer_id: sharer.id)
+    new_price = sharer.plan_cost/(contracts.length + 1)
+
+    puts "Updating cost of #{contracts.length} contracts to new cost of #{new_price} for sharer #{sharer.id}"
+    contracts.each do |c|
+      c.price = new_price
+      c.save
     end
   end
 

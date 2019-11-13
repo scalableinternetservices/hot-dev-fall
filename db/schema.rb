@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191108060032) do
+ActiveRecord::Schema.define(version: 20191113060355) do
 
   create_table "contracts", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20191108060032) do
     t.integer "joiner_uid"
     t.string "account_id"
     t.string "account_password"
+    t.float "price"
     t.index ["created_at"], name: "index_contracts_on_sharer_id_and_created_at"
     t.index ["joiner_uid"], name: "index_contracts_on_joiner_uid"
     t.index ["sharer_id"], name: "index_contracts_on_sharer_id"
@@ -44,6 +45,7 @@ ActiveRecord::Schema.define(version: 20191108060032) do
     t.string "account_id"
     t.string "account_password"
     t.string "status"
+    t.float "plan_cost"
     t.index ["user_id"], name: "index_sharers_on_user_id"
   end
 

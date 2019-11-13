@@ -12,7 +12,10 @@
   <% end %>
 
   <div class="field">
-    <%= form.hidden_field :service, :value => "Netflix" %>
+    <%= form.label :service, "Which streaming service are you looking to join?", class: 'default-color' %>
+    <br>
+    <%= select(:joiner, :service, [['Netflix', 'Netflix'], ['Hulu', 'Hulu'], ['Prime Video', 'Prime Video']]) %>
+    <br><br>
     <%= form.hidden_field :user_id, :value => current_user.id %>
     <%= form.hidden_field :status, :value => "Pending" %>
   </div>

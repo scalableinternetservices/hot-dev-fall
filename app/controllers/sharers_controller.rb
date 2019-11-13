@@ -24,12 +24,39 @@ class SharersController < ApplicationController
   # POST /sharers
   # POST /sharers.json
   def create
+
     @sharer = Sharer.new(sharer_params)
+
+    service = sharer_params["service"]
+    plan = sharer_params["size"]
+
+    if service == "Netflix" && plan == "Standard"
+      computed_size = 1
+    end
+    
+    if service == "Netflix" && plan == "Premium"
+      computed_size = 3
+    end
+
+    if service == "Hulu" && plan == "Standard"
+      computed_size = 1
+    end
+
+    if service == "Hulu" && plan == "Premium"
+      computed_size = 2
+    end
+
+    if service == "Prime Video"
+      computed_size = 2
+    end
+
+    @sharer = Sharer.new(sharer_params)
+    @sharer.size = computed_size
 
     respond_to do |format|
       if @sharer.save
           # TODO: Matching algorithm
-          joiners = Joiner.order(:created_at).first(@sharer.size)
+          joiners = Joiner.where(service: @sharer.service).order(:created_at).first(@sharer.size)
           if joiners.length > 0
             @sharer.size = @sharer.size - joiners.length
             @sharer.save
@@ -38,6 +65,7 @@ class SharersController < ApplicationController
               #create the contracts
               @contract = Contract.new(sharer_id:@sharer.id, sharer_uid: @sharer.user_id, joiner_uid: j.user_id, account_id: @sharer.account_id, account_password: @sharer.account_password)
               @contract.save
+              puts "MATCHED SHARER #{@sharer.user_id} TO #{j.user_id}"
             end
           end
 

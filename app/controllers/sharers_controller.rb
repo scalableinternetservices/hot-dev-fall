@@ -51,25 +51,40 @@ class SharersController < ApplicationController
     end
 
     @sharer = Sharer.new(sharer_params)
+<<<<<<< HEAD
     @sharer.size = computed_size
 
     respond_to do |format|
       if @sharer.save
           # TODO: Matching algorithm
           joiners = Joiner.where(service: @sharer.service).order(:created_at).first(@sharer.size)
+=======
+    #sharer should have a pending status
+    respond_to do |format|
+      if @sharer.save
+        puts
+        unless Joiner.first.nil?
+          joiners = Joiner.where("? != user_id AND ? == service AND status == ?", @sharer.user_id, @sharer.service, "Pending").order(:created_at).first(@sharer.size)
+>>>>>>> improve mathcing algoritm constrains
           if joiners.length > 0
             @sharer.size = @sharer.size - joiners.length
+            if @sharer.size == 0
+              @sharer.status = "Complete"
+            end
             @sharer.save
-
             joiners.each do |j|
               #create the contracts
               @contract = Contract.new(sharer_id:@sharer.id, sharer_uid: @sharer.user_id, joiner_uid: j.user_id, account_id: @sharer.account_id, account_password: @sharer.account_password)
               @contract.save
+<<<<<<< HEAD
               puts "MATCHED SHARER #{@sharer.user_id} TO #{j.user_id}"
+=======
+              j.status = "Complete"
+              j.save
+>>>>>>> improve mathcing algoritm constrains
             end
           end
-
-
+        end
           format.html { redirect_to "/" }
           format.json { render :show, status: :ok, location: @sharer }
       else

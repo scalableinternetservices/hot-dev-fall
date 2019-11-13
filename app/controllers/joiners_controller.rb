@@ -29,12 +29,13 @@ class JoinersController < ApplicationController
 
     if @joiner.save
       # TODO: Run matching algorithm
-      sharer = Sharer.where("size > 0", 0).order(:created_at).first
+      sharer = Sharer.where(service: @joiner.service).where("size > 0", 0).order(:created_at).first
       unless sharer.nil?
         @contract = Contract.new(sharer_id: sharer.id, sharer_uid: sharer.user_id, joiner_uid: @joiner.user_id, account_id: sharer.account_id, account_password: sharer.account_password)
         @contract.save
         sharer.size = sharer.size - 1
         sharer.save
+        puts "MATCHED JOINER #{@joiner.user_id} TO #{sharer.user_id}"
       end
       redirect_to "/"
     end

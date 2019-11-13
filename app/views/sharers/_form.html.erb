@@ -12,11 +12,15 @@
   <% end %>
 
   <div class="field">
-    <%= form.hidden_field :service, :value => "Netflix" %>
 
+    <%= form.label :service, "Which streaming service do you have?", class: 'default-color' %>
+    <%= select(:sharer, :service, [['Netflix', 'Netflix'], ['Hulu', 'Hulu'], ['Prime Video', 'Prime Video']]) %>
+    <br><br>
     <%= form.label :size, "Which plan do you have?", class: 'default-color' %>
 
-    <%= select(:sharer, :size, [['Standard', 1], ['Premium', 3]]) %>
+    <br>
+    <%= select(:sharer, :size, [['Standard', 'Standard'], ['Premium', 'Premium']]) %>
+    <br><br>
 
     <%= form.label :account_id, "What is your account username", class: 'default-color' %>
     <%= form.text_field :account_id%>

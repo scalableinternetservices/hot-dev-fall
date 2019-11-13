@@ -36,12 +36,9 @@ a {
 }
 
 .card {
-    width: 20%;
-    display: inline-block
-}
-
-.card-deck {
-    margin-top: 5%;
+  color: white;
+  background-color: black;
+  border: 1px solid rebeccapurple;
 }
 
 .container {
@@ -122,7 +119,7 @@ textarea {
 .splash {
     color: white;
     display: block;
-    margin-top: 20%;
+    margin-top: 5%;
 }
 
 .menu-card {

@@ -11,8 +11,8 @@ class ReshapeContracts < ActiveRecord::Migration[5.1]
     
     add_column :contracts, :sharer_uid, :int
     add_column :contracts, :joiner_uid, :int
-    add_column :contracts, :account_id, :int
-    add_column :contracts, :account_password, :int
+    add_column :contracts, :account_id, :string
+    add_column :contracts, :account_password, :string
 
     add_index :contracts, :sharer_uid
     add_index :contracts, :joiner_uid

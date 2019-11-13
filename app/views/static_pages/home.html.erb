@@ -54,8 +54,11 @@
                 <div>
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
-                            <h4><b><%= @service %></b></h4>
-                            <p><%= contract.sharer_uid %></p>
+                            <h4><b><%= contract.service %></b></h4>
+                            Shared with:
+                            <% contract.joiners_array.each do |joiner| -%>
+                                <p><%= joiner.email %></p>
+                            <% end -%>
                         </div>
                     </div>
                 </div>
@@ -70,8 +73,10 @@
                 <div>
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
-                              <h4><b> <%= @service %> </b></h4>
-                              <p>Username: <%= @account_name %></p>
+                              <h4><b> <%= contract.service %> </b></h4>
+                              <p>Account Owner: <%= contract.owner_email %></p>
+                              <p>Username: <%= contract.account_username %></p>
+                              <p>Password: <%= contract.account_password %></p>
                               <%= link_to "Message account owner", '/', class: "btn btn-primary" %>
                         </div>
                     </div>

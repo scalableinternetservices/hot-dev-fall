@@ -12,25 +12,78 @@
     <![endif]-->
   </head>
   <body>
-        <nav class="navbar navbar-fixed-top">
-          <%= link_to image_tag("logo.png"), "/" %>
-          <ul class="nav navbar-nav navbar-right">
-            <li class="nav-elem"><%= link_to "Home",   '/' %></li>
-            <li class="nav-elem"><%= link_to "Help",   '/help' %></li>
-            <% if user_signed_in? %>
-                <div class="dropdown">
-                    <button class="dropbtn"><%= current_user.email %></button>
+        <nav class="navbar-custom navbar-fixed-top" id="myTopnav">
+          <%= link_to image_tag("logo.png"), "/" , class: "nav-brand"%>
+          <ul class="nav-links" id="navbarTogglerDemo02">
+              <li class="nav-item"> <%= link_to "Home",   '/' %> </li>
+              <li class="nav-item"><%= link_to "Help",   '/help' %></li>
+              <% if user_signed_in? %>
+                  <div class="dropdown">
+                    <button class="dropbtn"> <%= current_user.email %>
+                      <i class="fa fa-caret-down"></i>
+                    </button>
                     <div class="dropdown-content">
-                        <%= link_to "Log out", '/logout' %>
+                      <%= link_to "Log out", '/logout' %>
                     </div>
-                </div>
-            <% else %>
-                <li class="nav-elem"><%= link_to "Log in", '/login' %></li>
-            <% end %>
+                  </div>
+
+              <% else %>
+                  <li class="nav-item"> <%= link_to "Log in", '/login' %> </li>
+              <% end %>      
           </ul>
+          
         </nav>
+
+
+        <div class="entireSideNav">
+            <nav>
+              <div class="sidenav-toggle-holder" onclick="handleToggleClick()">
+                <ul class="sidenav-links">
+                  <li class="sidenav-item"><a id="sidenav-toggle"><span id="hamburger"></span></a></li>
+                </ul>
+                
+              </div>
+              <div class="sidenav" id="mySidenav">
+                <div class="sidenav-content">
+                  <div class="sidenav-item sidebar-links" onclick="closeNav()"><%= link_to image_tag("logo.png"), "/" , class: "sidenav-brand"%></div>
+                  <div class="sidenav-item sidebar-links" onclick="closeNav()"><%= link_to "Home",   '/' %></div>
+                  <div class="sidenav-item sidebar-links" onclick="closeNav()"><%= link_to "Help",   '/help' %></div>
+                  <% if user_signed_in? %>
+                      <div class="sidenav-item sidebar-links" onclick="closeNav()"><%= link_to "Log out", '/logout' %></div>
+                  <% else %>
+                      <div class="sidenav-item sidebar-links" onclick="closeNav()"><%= link_to "Log in", '/login' %></div>
+                  <% end %> 
+                </div>
+              </div>
+            </nav>
+          </div>
+
     <div class="container">
       <%= yield %>
     </div>
+
+    <script>
+
+          function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("mySidenav").style.opacity = "100";
+            document.getElementById('sidenav-toggle').classList.toggle('active');
+          }
+          
+          /* Set the width of the side navigation to 0 */
+          function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("mySidenav").style.opacity = "0";
+            document.getElementById('sidenav-toggle').classList.toggle('active');
+          }
+          
+          function handleToggleClick() {
+            if (document.getElementById("sidenav-toggle").classList.contains("active")) {
+              closeNav();
+            } else {
+              openNav();
+            }
+          }
+    </script>
   </body>
 </html>

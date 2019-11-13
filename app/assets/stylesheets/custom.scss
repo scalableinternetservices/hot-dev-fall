@@ -15,6 +15,175 @@ body {
     background-color: #141414;
 }
 
+//================NAVBAR===========================
+
+/* Top Navbar */
+nav {
+  z-index: 5;
+  width: 100%;
+  height: 100px;
+  background-color: black;
+}
+
+.navbar-custom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  margin-bottom: 0px;
+}
+
+.nav-item a {
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 10px 15px;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 20px;
+  color: white;
+  padding-bottom: 1px;
+}
+
+.nav-item {
+  padding-right: 20px;
+}
+
+.nav-item a {
+  padding-bottom: 1px;
+}
+
+.nav-item:hover {
+  /* border-bottom: 1px solid white; */
+  text-decoration: underline;
+}
+
+.nav-item:hover a {
+  color: white;
+}
+
+.nav-brand {
+  left: 20px;
+  position: relative;
+}
+
+//========================================
+//==============SIDENAV===========================
+
+#hamburger {
+  right: 15px;
+  top: 30px;
+}
+
+#sidenav-toggle {
+  padding: 0px;
+}
+
+#sidenav-toggle span, #sidenav-toggle span:before, #sidenav-toggle span:after {
+  position: absolute;
+  display: block;
+  cursor: pointer;
+  border-radius: 1px;
+  height: 5px;
+  width: 35px;
+  background: white;
+  content: '';
+}
+
+#sidenav-toggle span:before {
+  top: -10px;
+}
+
+#sidenav-toggle span:after {
+  bottom: -10px;
+}
+
+#sidenav-toggle span, #sidenav-toggle span:before, #sidenav-toggle span:after {
+  transition: all 500ms ease-in-out;
+}
+
+#sidenav-toggle.active span {
+  background-color: transparent;
+}
+
+#sidenav-toggle.active span:before, #sidenav-toggle.active span:after {
+  top: 0;
+}
+
+#sidenav-toggle.active span:before {
+  transform: rotate(45deg);
+}
+
+#sidenav-toggle.active span:after {
+  transform: rotate(-45deg);
+}
+
+.entireSideNav {
+  display: none;
+}
+
+.sidenav {
+  opacity: 0; /* Initial display value */
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  right: 0;
+  padding-left: 15px;
+  background-color: #222; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+
+}
+
+.sidenav-brand img {
+  width: 200px;
+}
+
+.sidebar-links {
+  margin-bottom: 30px;
+}
+
+.sidenav-links {
+  list-style: none;
+}
+
+.sidenav-toggle-holder {
+  position: fixed;
+  top: 10px;
+  right: 20px;
+  font-size: 36px;
+  z-index:5;
+  width: 35px;
+  height: 45px;
+}
+
+.sidenav-content {
+  top: 50%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateY(-50%);
+}
+
+@media only screen and (max-width : 812px) {
+  .entireSideNav {
+    display: block;
+  }
+
+  .navbar-custom {
+    display: none;
+  }
+}
+
+//======================================
+
 .default-color {
   color: white;
 }

@@ -5,7 +5,7 @@ class StaticPagesController < ApplicationController
   def help
   end
 
-  ContractSharedObject = Struct.new(:service, :user_email, :user_id, :joiners_array, :price)
+  ContractSharedObject = Struct.new(:service, :user_email, :user_id, :joiners_array, :price, :account_username)
   ContractJoinedObject = Struct.new(:service, :owner_email, :account_username, :account_password, :price)
   def home
       if user_signed_in?
@@ -22,6 +22,7 @@ class StaticPagesController < ApplicationController
                 contractObject.service = Sharer.find(contract.sharer_id).service
                 contractObject.price = contract.price
                 contractObject.joiners_array = []
+                contractObject.account_username = contract.account_id
                 Joiner.where(user_id:contract.joiner_uid).find_each do |contract_joiner|
                     user = User.find(contract_joiner.user_id)
                     contractObject.joiners_array.push(user)
@@ -44,12 +45,14 @@ class StaticPagesController < ApplicationController
               end
 
               @my_share_requests = []
-              Sharer.where(user_id: @user.id).find_each do |share|
+              Sharer.where(user_id: @user.id).where(status: "Pending").find_each do |share|
+                puts "FUCK #{share.status}"
                 @my_share_requests.push(share)
               end
 
               @my_join_requests = []
-              Joiner.where(user_id: @user.id).find_each do |join|
+              Joiner.where(user_id: @user.id).where(status: "Pending").find_each do |join|
+                puts "FUCK #{join.status}"
                 @my_join_requests.push(join)
               end
 

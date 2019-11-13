@@ -36,7 +36,7 @@ class JoinersController < ApplicationController
             @joiner.status = "Complete"
             sharer.size = sharer.size - 1
             if sharer.size == 0
-              sharer.status == "Complete"
+              sharer.status = "Complete"
             end
             @joiner.save
             sharer.save

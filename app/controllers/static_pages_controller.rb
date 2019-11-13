@@ -18,7 +18,6 @@ class StaticPagesController < ApplicationController
           else
               @my_contracts_shared = []
               Contract.where(sharer_uid: @user.id).find_each do |contract|
-                puts "shitfuck: #{contract.price}"
                 contractObject = ContractSharedObject.new
                 contractObject.service = Sharer.find(contract.sharer_id).service
                 contractObject.price = contract.price

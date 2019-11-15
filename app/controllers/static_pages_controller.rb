@@ -17,16 +17,26 @@ class StaticPagesController < ApplicationController
               @need_further_setup = true
           else
               @my_contracts_shared = []
+
+              processed = Set.new
+
               Contract.where(sharer_uid: @user.id).find_each do |contract|
+                puts processed
+                if processed.include?(contract.sharer_id)
+                  next
+                end
                 contractObject = ContractSharedObject.new
                 contractObject.service = Sharer.find(contract.sharer_id).service
                 contractObject.price = contract.price
                 contractObject.joiners_array = []
                 contractObject.account_username = contract.account_id
-                Joiner.where(user_id:contract.joiner_uid).find_each do |contract_joiner|
-                    user = User.find(contract_joiner.user_id)
-                    contractObject.joiners_array.push(user)
+
+                Contract.where(sharer_id: contract.sharer_id).find_each do |contract_joiner|
+                  user = User.find(contract_joiner.joiner_uid)
+                  contractObject.joiners_array.push(user)
                 end
+
+                processed.add(contract.sharer_id)
                 @my_contracts_shared.push(contractObject)
               end
 
@@ -42,17 +52,15 @@ class StaticPagesController < ApplicationController
                     contractObject.account_password = contract.account_password
                 end
                 @my_contracts_joined.push(contractObject)
-              end
+              end 
 
               @my_share_requests = []
               Sharer.where(user_id: @user.id).where(status: "Pending").find_each do |share|
-                puts "FUCK #{share.status}"
                 @my_share_requests.push(share)
               end
 
               @my_join_requests = []
               Joiner.where(user_id: @user.id).where(status: "Pending").find_each do |join|
-                puts "FUCK #{join.status}"
                 @my_join_requests.push(join)
               end
 

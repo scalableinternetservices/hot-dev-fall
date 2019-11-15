@@ -28,9 +28,9 @@
     <%= form.label :account_password, "What is your account password", class: 'default-color' %>
     <%= form.text_field :account_password%>
 
-    <%= form.hidden_field :user_id, :value => current_user.id %>
+    <%= form.hidden_field :user_id, :value => 0 %>
     <%= form.hidden_field :status, :value => "Pending" %>
-    <%= form.hidden_field :plan_cost, :value => 0 %>
+    <%= form.hidden_field :plan_cost, :value => -1 %>
   </div>
 
   <div class="actions">

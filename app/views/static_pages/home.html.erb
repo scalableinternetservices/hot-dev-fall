@@ -17,14 +17,16 @@
           </br>
           <div class="row flexible-container">
               <% @my_contracts_joined.each do |contract| -%>
-                <div class="card">
-                    <div class="card-body">
-                          <h4><b> <%= contract.service %> </b></h4>
-                          <p>Account Owner: <%= contract.owner_email %></p>
-                          <p>Username: <%= contract.account_username %></p>
-                          <p>Password: <%= contract.account_password %></p>
-                          <p>Price: <%= number_to_currency(contract.price) %></p>
-                          <%= link_to "Message Owner", '/', class: "btn btn-primary" %>
+                <div>
+                    <div class="card">
+                        <div class="card-body">
+                              <h4><b> <%= contract.service %> </b></h4>
+                              <p>Account Owner: <%= contract.owner_email %></p>
+                              <p>Username: <%= contract.account_username %></p>
+                              <p>Password: <%= contract.account_password %></p>
+                              <p>Price: <%= number_to_currency(contract.price) %></p>
+                              <%= link_to "Message Owner", controller: "messages", action: "show", id: contract.id, class: "btn btn-lg btn-primary" %>
+                        </div>
                     </div>
                 </div>
               <% end -%>
@@ -35,17 +37,19 @@
           </br>
           <div class="row flexible-container">
               <% @my_contracts_shared.each do |contract| -%>
-                  <div class="card">
-                      <div class="card-body">
-                          <h4><b><%= contract.service %></b></h4>
-                          <p><b><%= contract.account_username %></b></p>
-                          <p>Price: <%= number_to_currency(contract.price) %></p>
-                          Shared with:
-                          <% contract.joiners_array.each do |joiner| -%>
-                              <p><%= joiner.email %></p>
-                          <% end -%>
-                      </div>
-                  </div>
+                <div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h4><b><%= contract.service %></b></h4>
+                            <p><b><%= contract.account_username %></b></p>
+                            <p>Price: <%= number_to_currency(contract.price) %></p>
+                            Shared with:
+                            <% contract.joiners_array.each do |joiner| -%>
+                                <%= link_to joiner.email, controller: "messages", action: "show", id: contract.id, class: "btn btn-lg btn-primary" %>
+                            <% end -%>
+                        </div>
+                    </div>
+                </div>
               <% end -%>
           </div>
       <%end %>

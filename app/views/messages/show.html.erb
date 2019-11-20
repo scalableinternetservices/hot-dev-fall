@@ -1,0 +1,19 @@
+<div>
+    <% @messages.each do | message | -%>
+        <div>
+            <% if message.sender_email == current_user.email %>
+                <p class="speech-bubble-sender"> <%= message.content %> </p>
+            <%else %>
+                <p class="speech-bubble-receiver"><%= message.content %> </p>
+            <%end%>
+            <hr>
+        </div>
+    <% end -%>
+</div>
+
+<%= form_for(@message) do |f| %>
+  <%= f.text_field :content, :class=>"message-text-field"%>
+  <%= f.hidden_field :contract_id, :value => @contract_id %>
+  <%= f.hidden_field :sender_email, :value => current_user.email %>
+  <%= f.submit "Send"%>
+<% end %>

@@ -5,8 +5,8 @@ class StaticPagesController < ApplicationController
   def help
   end
 
-  ContractSharedObject = Struct.new(:service, :user_email, :user_id, :joiners_array, :price, :account_username)
-  ContractJoinedObject = Struct.new(:service, :owner_email, :account_username, :account_password, :price)
+  ContractSharedObject = Struct.new(:id, :service, :user_email, :user_id, :joiners_array, :price, :account_username)
+  ContractJoinedObject = Struct.new(:id, :service, :owner_email, :account_username, :account_password, :price)
   def home
       if user_signed_in?
           sharer = Sharer.find_by(params[:id])
@@ -30,6 +30,7 @@ class StaticPagesController < ApplicationController
                 contractObject.price = contract.price
                 contractObject.joiners_array = []
                 contractObject.account_username = contract.account_id
+                contractObject.id = contract.id
 
                 Contract.where(sharer_id: contract.sharer_id).find_each do |contract_joiner|
                   user = User.find(contract_joiner.joiner_uid)
@@ -43,6 +44,7 @@ class StaticPagesController < ApplicationController
               @my_contracts_joined = []
               Contract.where(joiner_uid: @user.id).find_each do |contract|
                 contractObject = ContractJoinedObject.new
+                contractObject.id = contract.id
                 contractObject.service = Sharer.find(contract.sharer_id).service
                 contractObject.price = contract.price
                 Sharer.where(user_id:contract.sharer_uid).find_each do |contract_creator|
@@ -52,7 +54,7 @@ class StaticPagesController < ApplicationController
                     contractObject.account_password = contract.account_password
                 end
                 @my_contracts_joined.push(contractObject)
-              end 
+              end
 
               @my_share_requests = []
               Sharer.where(user_id: @user.id).where(status: "Pending").find_each do |share|

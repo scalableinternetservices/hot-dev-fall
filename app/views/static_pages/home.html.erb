@@ -25,7 +25,7 @@
                               <p>Username: <%= contract.account_username %></p>
                               <p>Password: <%= contract.account_password %></p>
                               <p>Price: <%= number_to_currency(contract.price) %></p>
-                              <%= link_to "Message Group", '/', class: "btn btn-primary" %>
+                              <%= link_to "Message Owner", controller: "messages", action: "show", id: contract.id, class: "btn btn-lg btn-primary" %>
                         </div>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                             <p>Price: <%= number_to_currency(contract.price) %></p>
                             Shared with:
                             <% contract.joiners_array.each do |joiner| -%>
-                                <p><%= joiner.email %></p>
+                                <%= link_to joiner.email, controller: "messages", action: "show", id: contract.id, class: "btn btn-lg btn-primary" %>
                             <% end -%>
                         </div>
                     </div>

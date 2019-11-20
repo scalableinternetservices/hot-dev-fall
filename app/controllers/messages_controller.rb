@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
-  before_action :set_message, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_message, only: [:edit, :update, :destroy]
+  before_action :get_messages_for_contract, only: [:show]
   # GET /messages
   # GET /messages.json
   def index
@@ -10,6 +10,14 @@ class MessagesController < ApplicationController
   # GET /messages/1
   # GET /messages/1.json
   def show
+      @message = Message.new
+      @contract_id = params[:id]
+
+      print @contract_id
+
+      @messages.each do | message |
+          print message.content
+      end
   end
 
   # GET /messages/new
@@ -26,9 +34,12 @@ class MessagesController < ApplicationController
   def create
     @message = Message.new(message_params)
 
+    # PROBLEM: you can see other people's messages. Need to authenticate somehow.
+    new_route = "/messages/" + message_params["contract_id"].to_s
+
     respond_to do |format|
       if @message.save
-        format.html { redirect_to @message, notice: 'Message was successfully created.' }
+        format.html { redirect_to new_route }
         format.json { render :show, status: :created, location: @message }
       else
         format.html { render :new }
@@ -67,8 +78,16 @@ class MessagesController < ApplicationController
       @message = Message.find(params[:id])
     end
 
+    def get_messages_for_contract
+        @messages = []
+        Message.where(contract_id:params[:id]).find_each do |message|
+            @messages.push(message)
+        end
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def message_params
       params.fetch(:message, {})
+       params.require(:message).permit(:content, :contract_id, :sender_email)
     end
 end

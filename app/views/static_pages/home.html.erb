@@ -15,10 +15,10 @@
       <% if @my_contracts_joined && @my_contracts_joined.length > 0 %>
           <h1> Accounts you have joined: </h1>
           </br>
-          <div class="row">
+          <div class="row flexible-container">
               <% @my_contracts_joined.each do |contract| -%>
                 <div>
-                    <div class="card" style="width: 18rem;">
+                    <div class="card">
                         <div class="card-body">
                               <h4><b> <%= contract.service %> </b></h4>
                               <p>Account Owner: <%= contract.owner_email %></p>
@@ -35,10 +35,10 @@
       <% if @my_contracts_shared && @my_contracts_shared.length > 0 %>
           <h1> Accounts you have shared with others: </h1>
           </br>
-          <div class="row">
+          <div class="row flexible-container">
               <% @my_contracts_shared.each do |contract| -%>
                 <div>
-                    <div class="card" style="width: 18rem;">
+                    <div class="card">
                         <div class="card-body">
                             <h4><b><%= contract.service %></b></h4>
                             <p><b><%= contract.account_username %></b></p>
@@ -57,7 +57,7 @@
       <% if @my_share_requests && @my_share_requests.length > 0 %>
          <h1> Accounts you are looking to share: </h1>
           </br>
-            <div class="row">
+            <div class="row flexible-container">
                 <% @my_share_requests.each do |request| -%>
                   <div class="card" style="width: 18rem;">
                     <div class="card-body">
@@ -66,14 +66,15 @@
                       <p>Spots left in the plan: <b><%= request.size %></b></p>
                     </div>
                   </div>
+                  <% end -%>
             </div>
-          <% end -%>
+          
       </div>
       <% end %>
       <div>
       <% if @my_join_requests && @my_join_requests.length > 0 %>
          <h1> Pending join requests: </h1>
-            <div class="row">
+            <div class="row flexible-container">
                 <% @my_join_requests.each do |request| -%>
                   <div class="card" style="width: 18rem;">
                       <div class="card-body">
@@ -81,8 +82,9 @@
                             <p>Request submitted on: <b><%= request.created_at %></b></p>
                       </div>
                   </div>
+                  <% end -%>
             </div>
-          <% end -%>
+          
       <%end %>
       </div>
   <% end %>

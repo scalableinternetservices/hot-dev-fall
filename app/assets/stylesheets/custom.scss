@@ -15,6 +15,13 @@ body {
     background-color: #141414;
 }
 
+.flexible-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 //================NAVBAR===========================
 
 /* Top Navbar */
@@ -184,6 +191,16 @@ nav {
 
 //======================================
 
+
+//=============CARDS======================
+
+.card {
+  height: 300px;
+  overflow: scroll;
+  max-height: 300px;
+  width: 18rem;
+  margin: 8px;
+}
 .default-color {
   color: white;
 }

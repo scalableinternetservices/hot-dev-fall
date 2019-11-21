@@ -7,6 +7,7 @@ class StaticPagesController < ApplicationController
 
   ContractSharedObject = Struct.new(:id, :service, :user_email, :user_id, :joiners_array, :price, :account_username)
   ContractJoinedObject = Struct.new(:id, :service, :owner_email, :account_username, :account_password, :price)
+  ContractJoinerObject = Struct.new(:id, :user)
   def home
       if user_signed_in?
           sharer = Sharer.find_by(params[:id])
@@ -21,6 +22,8 @@ class StaticPagesController < ApplicationController
               processed = Set.new
 
               Contract.where(sharer_uid: @user.id).find_each do |contract|
+                print "YAAAAAAAAAA"
+                print contract.id
                 puts processed
                 if processed.include?(contract.sharer_id)
                   next
@@ -34,10 +37,14 @@ class StaticPagesController < ApplicationController
 
                 Contract.where(sharer_id: contract.sharer_id).find_each do |contract_joiner|
                   user = User.find(contract_joiner.joiner_uid)
-                  contractObject.joiners_array.push(user)
+                  joiner = ContractJoinerObject.new
+                  joiner.id = contract_joiner.id
+                  joiner.user = user
+                  contractObject.joiners_array.push(joiner)
                 end
 
                 processed.add(contract.sharer_id)
+                print "ADDED"
                 @my_contracts_shared.push(contractObject)
               end
 

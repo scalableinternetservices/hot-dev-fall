@@ -45,7 +45,7 @@
                             <p>Price: <%= number_to_currency(contract.price) %></p>
                             Shared with:
                             <% contract.joiners_array.each do |joiner| -%>
-                                <%= link_to joiner.email, {controller: "messages", action: "show", id: contract.id} %>
+                                <%= link_to joiner.user.email, {controller: "messages", action: "show", id: contract.id} %>
                             <% end -%>
                         </div>
                     </div>

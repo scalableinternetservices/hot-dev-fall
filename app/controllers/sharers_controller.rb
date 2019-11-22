@@ -26,7 +26,7 @@ class SharersController < ApplicationController
   def create
 
     @sharer = Sharer.new(sharer_params)
-
+    @sharer.user_id = current_user.id
     service = sharer_params["service"]
     plan = sharer_params["size"]
 

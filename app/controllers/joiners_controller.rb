@@ -26,7 +26,7 @@ class JoinersController < ApplicationController
   # POST /joiners.json
   def create
     @joiner = Joiner.new(joiner_params)
-
+    @joiner.user_id = current_user.id
     if @joiner.save #should have service filled out and status as pending
       unless Sharer.first.nil?
         sharer = Sharer.where("size > ? AND user_id != ? AND service == ?", 0, @joiner.user_id, @joiner.service).order(:created_at).first

@@ -16,7 +16,7 @@
     <br>
     <%= select(:joiner, :service, [['Netflix', 'Netflix'], ['Hulu', 'Hulu'], ['Disney+', 'Disney+']]) %>
     <br><br>
-    <%= form.hidden_field :user_id, :value => current_user.id %>
+    <%= form.hidden_field :user_id, :value => -1 %>
     <%= form.hidden_field :status, :value => "Pending" %>
   </div>
 

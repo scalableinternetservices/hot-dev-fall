@@ -22,14 +22,14 @@ class StaticPagesController < ApplicationController
               processed = Set.new
 
               Contract.where(sharer_uid: @user.id).find_each do |contract|
-                print "YAAAAAAAAAA"
-                print contract.id
-                puts processed
                 if processed.include?(contract.sharer_id)
                   next
                 end
                 contractObject = ContractSharedObject.new
-                contractObject.service = Sharer.find(contract.sharer_id).service
+
+                shareRequest = Sharer.find(contract.sharer_id)
+
+                contractObject.service = shareRequest.service
                 contractObject.price = contract.price
                 contractObject.joiners_array = []
                 contractObject.account_username = contract.account_id
@@ -44,22 +44,25 @@ class StaticPagesController < ApplicationController
                 end
 
                 processed.add(contract.sharer_id)
-                print "ADDED"
                 @my_contracts_shared.push(contractObject)
               end
 
               @my_contracts_joined = []
               Contract.where(joiner_uid: @user.id).find_each do |contract|
                 contractObject = ContractJoinedObject.new
+
                 contractObject.id = contract.id
-                contractObject.service = Sharer.find(contract.sharer_id).service
+                contractObject.account_username = contract.account_id
+                contractObject.account_password = contract.account_password
                 contractObject.price = contract.price
-                Sharer.where(user_id:contract.sharer_uid).find_each do |contract_creator|
-                    user = User.find(contract_creator.user_id)
-                    contractObject.owner_email = user.email
-                    contractObject.account_username = contract.account_id
-                    contractObject.account_password = contract.account_password
-                end
+
+                shareRequest = Sharer.find(contract.sharer_id)
+
+                contractObject.service = shareRequest.service
+
+                creator = User.find(shareRequest.user_id)
+                contractObject.owner_email = creator.email
+
                 @my_contracts_joined.push(contractObject)
               end
 

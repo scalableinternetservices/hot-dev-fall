@@ -15,6 +15,8 @@ class MessagesController < ApplicationController
 
       print @contract_id
 
+      fresh_when(@messages)
+
       @messages.each do | message |
           print message.content
       end

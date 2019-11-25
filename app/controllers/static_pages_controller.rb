@@ -67,8 +67,10 @@ class StaticPagesController < ApplicationController
               end
 
               @my_share_requests = []
-              Sharer.where(user_id: @user.id).where(status: "Pending").find_each do |share|
-                @my_share_requests.push(share)
+              cache(cache_key_for_share_requests(@my_share_requests)) do
+                Sharer.where(user_id: @user.id).where(status: "Pending").find_each do |share|
+                  @my_share_requests.push(share)
+                end
               end
 
               @my_join_requests = []
@@ -86,8 +88,4 @@ class StaticPagesController < ApplicationController
       end
 
   end
-
-  def dataform
-  end
-
 end

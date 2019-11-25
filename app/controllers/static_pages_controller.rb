@@ -67,10 +67,8 @@ class StaticPagesController < ApplicationController
               end
 
               @my_share_requests = []
-              cache(cache_key_for_share_requests(@my_share_requests)) do
-                Sharer.where(user_id: @user.id).where(status: "Pending").find_each do |share|
-                  @my_share_requests.push(share)
-                end
+              Sharer.where(user_id: @user.id).where(status: "Pending").find_each do |share|
+                @my_share_requests.push(share)
               end
 
               @my_join_requests = []

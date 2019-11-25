@@ -27,6 +27,7 @@ class StaticPagesController < ApplicationController
                   next
                 end
                 contractObject = process_share_contract(contract)
+                puts "OBJ #{contractObject}"
                 processed.add(contract.sharer_id)
                 @my_contracts_shared.push(contractObject)
               end
@@ -60,11 +61,11 @@ class StaticPagesController < ApplicationController
                 @my_join_requests.push(join)
               end
 
-              puts @user.id
-              puts @my_contracts_shared
-              puts @my_contracts_joined
-              puts @my_share_requests
-              puts @my_join_requests
+              # puts @user.id
+              # puts @my_contracts_shared
+              # puts @my_contracts_joined
+              # puts @my_share_requests
+              # puts @my_join_requests
           end
       else
       end
@@ -72,23 +73,33 @@ class StaticPagesController < ApplicationController
   end
 
 def process_share_contract(contract)
-  contractObject = ContractSharedObject.new
-  shareRequest = Sharer.find(contract.sharer_id)
+  cache_key = cache_key_share_contract(contract)
+  puts "KEY: #{cache_key}"
+  Rails.cache.fetch(cache_key, expires_in: 1.hours) do
+    puts "CACHE FAIL"
+    contractObject = ContractSharedObject.new
+    shareRequest = Sharer.find(contract.sharer_id)
 
-  contractObject.service = shareRequest.service
-  contractObject.price = contract.price
-  contractObject.joiners_array = []
-  contractObject.account_username = contract.account_id
-  contractObject.id = contract.id
+    contractObject.service = shareRequest.service
+    contractObject.price = contract.price
+    contractObject.joiners_array = []
+    contractObject.account_username = contract.account_id
+    contractObject.id = contract.id
 
-  Contract.where(sharer_id: contract.sharer_id).find_each do |contract_joiner|
-    user = User.find(contract_joiner.joiner_uid)
-    joiner = ContractJoinerObject.new
-    joiner.id = contract_joiner.id
-    joiner.user = user
-    contractObject.joiners_array.push(joiner)
+    Contract.where(sharer_id: contract.sharer_id).find_each do |contract_joiner|
+      user = User.find(contract_joiner.joiner_uid)
+      joiner = ContractJoinerObject.new
+      joiner.id = contract_joiner.id
+      joiner.user = user
+      contractObject.joiners_array.push(joiner)
+    end
+    puts "CREATED: #{contractObject}"
+    contractObject
   end
-  return contractObject
+end
+
+def cache_key_share_contract(contract)
+  return "share_contract-#{@user.id}-#{contract.id}-#{contract.updated_at}-1"
 end
 
 end

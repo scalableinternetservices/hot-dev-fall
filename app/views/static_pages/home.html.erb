@@ -56,6 +56,7 @@
       <div>
       <% if @my_share_requests && @my_share_requests.length > 0 %>
         <% cache(cache_key_for_share_requests(@my_share_requests)) do -%>
+        <% puts "CACHE FAILS"-%>
          <h1> Accounts you are looking to share: </h1>
           </br>
             <div class="row flexible-container">
@@ -75,6 +76,7 @@
       <div>
       <% if @my_join_requests && @my_join_requests.length > 0 %>
         <% cache(cache_key_for_join_requests(@my_join_requests)) do -%>
+         <% puts "CACHE FAILS"-%>
          <h1> Pending join requests: </h1>
             <div class="row flexible-container">
                 <% @my_join_requests.each do |request| -%>

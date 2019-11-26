@@ -26,7 +26,15 @@ class StaticPagesController < ApplicationController
                 if processed.include?(contract.sharer_id)
                   next
                 end
-                contractObject = process_share_contract(contract)
+
+                cache_key = cache_key_share_contract(contract)
+                puts "KEY: #{cache_key}"
+                
+                # TODO: Figure out when to expire i.e. length of a session/load test
+                contractObject = Rails.cache.fetch(cache_key, expires_in: 5.minutes) do
+                  process_share_contract(contract)
+                end
+        
                 puts "OBJ #{contractObject}"
                 processed.add(contract.sharer_id)
                 @my_contracts_shared.push(contractObject)
@@ -73,33 +81,29 @@ class StaticPagesController < ApplicationController
   end
 
 def process_share_contract(contract)
-  cache_key = cache_key_share_contract(contract)
-  puts "KEY: #{cache_key}"
-  Rails.cache.fetch(cache_key, expires_in: 1.hours) do
-    puts "CACHE FAIL"
-    contractObject = ContractSharedObject.new
-    shareRequest = Sharer.find(contract.sharer_id)
+  puts "CACHE FAIL"
+  contractObject = ContractSharedObject.new
+  shareRequest = Sharer.find(contract.sharer_id)
 
-    contractObject.service = shareRequest.service
-    contractObject.price = contract.price
-    contractObject.joiners_array = []
-    contractObject.account_username = contract.account_id
-    contractObject.id = contract.id
+  contractObject.service = shareRequest.service
+  contractObject.price = contract.price
+  contractObject.joiners_array = []
+  contractObject.account_username = contract.account_id
+  contractObject.id = contract.id
 
-    Contract.where(sharer_id: contract.sharer_id).find_each do |contract_joiner|
-      user = User.find(contract_joiner.joiner_uid)
-      joiner = ContractJoinerObject.new
-      joiner.id = contract_joiner.id
-      joiner.user = user
-      contractObject.joiners_array.push(joiner)
-    end
-    puts "CREATED: #{contractObject}"
-    contractObject
+  Contract.where(sharer_id: contract.sharer_id).find_each do |contract_joiner|
+    user = User.find(contract_joiner.joiner_uid)
+    joiner = ContractJoinerObject.new
+    joiner.id = contract_joiner.id
+    joiner.user = user
+    contractObject.joiners_array.push(joiner)
   end
+  puts "CREATED: #{contractObject}"
+  contractObject
 end
 
 def cache_key_share_contract(contract)
-  return "share_contract-#{@user.id}-#{contract.id}-#{contract.updated_at}-1"
+ "share_contract-#{@user.id}-#{contract.id}-#{contract.updated_at}-#"
 end
 
 end

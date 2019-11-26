@@ -14,6 +14,10 @@ module SubscriptionSharing
     config.action_controller.perform_caching = true
     config.cache_store = :memory_store, { size: 64.megabytes }
 
+    # TODO: Configure/deploy memcache instead of in memory
+    # config.cache_store = :dalli_store, 'http://localhost:12111',
+    # { :namespace => "HOT-DEV-FALL", :expires_in => 1.day, :compress => true }
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

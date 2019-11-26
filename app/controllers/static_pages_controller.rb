@@ -35,7 +35,7 @@ class StaticPagesController < ApplicationController
                   process_share_contract(contract)
                 end
         
-                puts "OBJ #{contractObject}"
+                # puts "OBJ #{contractObject}"
                 processed.add(contract.sharer_id)
                 @my_contracts_shared.push(contractObject)
               end
@@ -49,8 +49,8 @@ class StaticPagesController < ApplicationController
                 contractObject.account_password = contract.account_password
                 contractObject.price = contract.price
 
+                # TODO: Add service to joins model, avoid JOIN
                 shareRequest = Sharer.find(contract.sharer_id)
-
                 contractObject.service = shareRequest.service
 
                 creator = User.find(shareRequest.user_id)
@@ -80,8 +80,9 @@ class StaticPagesController < ApplicationController
 
   end
 
+# Cache: Accounts you have shared
 def process_share_contract(contract)
-  puts "CACHE FAIL"
+  puts "CACHE MISS"
   contractObject = ContractSharedObject.new
   shareRequest = Sharer.find(contract.sharer_id)
 
@@ -104,6 +105,16 @@ end
 
 def cache_key_share_contract(contract)
  "share_contract-#{@user.id}-#{contract.id}-#{contract.updated_at}-#"
+end
+
+# TODO: Cache what you are looking to share/join
+# Invalid when -> you create new sharer/joiner OR someone else accepts your sharer/joiner ...
+def cache_key_share_req(contract)
+  "share_reqs-#{@user.id}"
+end
+
+def cache_key_join_req(contract)
+  "join_reqs-#{@user.id}"
 end
 
 end

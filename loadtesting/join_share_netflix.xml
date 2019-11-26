@@ -1,0 +1,197 @@
+<?xml version="1.0"?>
+<!DOCTYPE tsung SYSTEM "/usr/local/share/tsung/tsung-1.0.dtd" [] >
+<tsung loglevel="notice">
+
+  <!-- Client side setup -->
+  <clients>
+    <client host="localhost" use_controller_vm="true" maxusers='15000'/>
+  </clients>
+
+  <!-- Server side setup -->
+  <servers>
+    <server host="cscaching.enfgiuckxv.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
+  </servers>
+
+
+  <load>
+    <arrivalphase phase="1" duration="30" unit="second">
+      <users arrivalrate="1" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="2" duration="30" unit="second">
+      <users arrivalrate="2" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="3" duration="30" unit="second">
+      <users arrivalrate="4" unit="second"></users>
+    </arrivalphase>
+  </load>
+
+  <options>
+    <!-- Set connection timeout to 2 seconds -->
+    <option name="global_ack_timeout" value="2000"></option>
+
+    <option type="ts_http" name="user_agent">
+      <user_agent probability="100">Mozilla/5.0 (Windows; U; Windows NT 5.2; fr-FR; rv:1.7.8) Gecko/20050511 Firefox/1.0.4</user_agent>
+    </option>
+  </options>
+
+  <sessions>
+        <!-- Make user join a netflix account -->
+    <session name="http-example" probability="90" type="ts_http">
+
+      <!-- start out at the dashboard. -->
+      <request>
+        <http url='/' version='1.1' method='GET'></http>
+      </request>
+
+      <!-- wait for up to 2 seconds, user is looking at posts -->
+      <thinktime value="2" random="true"></thinktime>
+
+      <!-- create a email name -->
+      <setdynvars sourcetype="random_string" length="30">
+        <var name="rdm_signup_email_name" />
+      </setdynvars>
+
+    <!-- create a random email domain -->
+      <setdynvars sourcetype="random_string" length="30">
+        <var name="rdm_signup_email_domain" />
+      </setdynvars>
+
+    <!-- go to to signup page and pull authenticity_token-->
+      <request>
+        <dyn_variable name="authenticity_token"></dyn_variable>
+        <http url='/signup' version='1.1' method='GET'>
+          <http_header name="Cookie" value="%%_cookie%%" />
+        </http>
+      </request>
+
+      <!-- encode Auth token -->
+      <setdynvars sourcetype="eval"
+            code="fun({Pid,DynVars})->
+                {ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),
+                http_uri:encode(Val) end.">
+            <var name="encoded_authenticity_token" />
+        </setdynvars>
+
+    <!-- wait for up to 2 seconds, user is filling out new user form -->
+      <thinktime value="2" random="true" ></thinktime>
+
+        <!-- make a user -->
+        <request subst="true">
+            <http url='/users' version='1.1'
+            contents='utf8=%E2%9C%93&amp;authenticity_token=%%_encoded_authenticity_token%%&amp;user%5Bemail%5D=%%_rdm_signup_email_name%%%40%%_rdm_signup_email_domain%%.com&amp;user%5Bpassword%5D=testing&amp;user%5Bpassword_confirmation%5D=testing&amp;commit=Sign+up'
+            content_type='application/x-www-form-urlencoded' method='POST'>
+            </http>
+        </request>
+
+        <!-- navigate to usertype page -->
+      <request>
+        <http url='/static_pages/usertype' version='1.1' method='GET'></http>
+      </request>
+
+    <!-- wait for up to 2 seconds, user is choosing if sharer or joiner -->
+      <thinktime value="2" random="true" ></thinktime>
+
+      <!-- go to to joiner page and pull authenticity_token-->
+      <request>
+      <dyn_variable name="authenticity_token" xpath="/html/head/meta[@name='csrf-token']/@content"></dyn_variable>
+        <http url='/joiner' version='1.1' method='GET' />
+      </request>
+
+      <!-- encode new Auth token -->
+      <setdynvars sourcetype="eval"
+            code="fun({Pid,DynVars})->
+                {ok,[Val]}=ts_dynvars:lookup(authenticity_token,DynVars),
+                http_uri:encode(Val) end.">
+            <var name="encoded_authenticity_token" />
+        </setdynvars>
+
+      <!-- make a pending joiner request to join Netflix-->
+        <request subst="true">
+            <http url='/joiners' version='1.1'
+            contents='utf8=%E2%9C%93&amp;authenticity_token=%%_encoded_authenticity_token%%&amp;joiner%5Bservice%5D=Netflix&amp;joiner%5Buser_id%5D=-1&amp;joiner%5Bstatus%5D=Pending&amp;commit=Join+A+Group'
+            content_type='application/x-www-form-urlencoded' method='POST'>
+            </http>
+        </request>
+
+    </session>
+        <!-- Make user share a netflix account -->
+    <session name="http-example" probability="10" type="ts_http">
+
+      <!-- start out at the dashboard. -->
+      <request>
+        <http url='/' version='1.1' method='GET'></http>
+      </request>
+
+      <!-- wait for up to 2 seconds, user is looking at posts -->
+      <thinktime value="2" random="true"></thinktime>
+
+      <!-- create a email name -->
+      <setdynvars sourcetype="random_string" length="30">
+        <var name="rdm_signup_email_name" />
+      </setdynvars>
+
+    <!-- create a random email domain -->
+      <setdynvars sourcetype="random_string" length="30">
+        <var name="rdm_signup_email_domain" />
+      </setdynvars>
+
+    <!-- go to to signup page and pull authenticity_token-->
+      <request>
+        <dyn_variable name="authenticity_token"></dyn_variable>
+        <http url='/signup' version='1.1' method='GET'>
+          <http_header name="Cookie" value="%%_cookie%%" />
+        </http>
+      </request>
+
+      <!-- encode Auth token -->
+      <setdynvars sourcetype="eval"
+            code="fun({Pid,DynVars})->
+                {ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),
+                http_uri:encode(Val) end.">
+            <var name="encoded_authenticity_token" />
+        </setdynvars>
+
+    <!-- wait for up to 2 seconds, user is filling out new user form -->
+      <thinktime value="2" random="true" ></thinktime>
+
+        <!-- make a user -->
+        <request subst="true">
+            <http url='/users' version='1.1'
+            contents='utf8=%E2%9C%93&amp;authenticity_token=%%_encoded_authenticity_token%%&amp;user%5Bemail%5D=%%_rdm_signup_email_name%%%40%%_rdm_signup_email_domain%%.com&amp;user%5Bpassword%5D=testing&amp;user%5Bpassword_confirmation%5D=testing&amp;commit=Sign+up'
+            content_type='application/x-www-form-urlencoded' method='POST'>
+            </http>
+        </request>
+
+        <!-- navigate to usertype page -->
+      <request>
+        <http url='/static_pages/usertype' version='1.1' method='GET'></http>
+      </request>
+
+    <!-- wait for up to 2 seconds, user is choosing if sharer or joiner -->
+      <thinktime value="2" random="true" ></thinktime>
+
+      <!-- go to to sharer page and pull authenticity_token-->
+      <request>
+      <dyn_variable name="authenticity_token" xpath="/html/head/meta[@name='csrf-token']/@content"></dyn_variable>
+        <http url='/sharer' version='1.1' method='GET' />
+      </request>
+
+      <!-- encode new Auth token -->
+      <setdynvars sourcetype="eval"
+            code="fun({Pid,DynVars})->
+                {ok,[Val]}=ts_dynvars:lookup(authenticity_token,DynVars),
+                http_uri:encode(Val) end.">
+            <var name="encoded_authenticity_token" />
+        </setdynvars>
+
+      <!-- make a pending sharer request to share Netflix account-->
+        <request subst="true">
+            <http url='/sharers' version='1.1'
+            contents='utf8=%E2%9C%93&amp;authenticity_token=%%_encoded_authenticity_token%%&amp;sharer%5Bservice%5D=Netflix&amp;sharer%5Bsize%5D=Standard&amp;sharer%5Baccount_id%5D=test@gmail.com&amp;sharer%5Baccount_password%5D=password&amp;sharer%5Buser_id%5D=0&amp;sharer%5Bstatus%5D=Pending&amp;sharer%5Bplan_cost%5D=-1&amp;commit=Share'
+            content_type='application/x-www-form-urlencoded' method='POST'>
+            </http>
+        </request>
+
+    </session>
+  </sessions>
+</tsung>

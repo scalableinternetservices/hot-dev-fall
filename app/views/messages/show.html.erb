@@ -1,5 +1,7 @@
+<%= will_paginate @messages, :previous_label => '← Newer Messages', :next_label => 'Older Messages →' %>
+
 <div>
-    <% @messages.each do | message | -%>
+    <% @messages.reverse_each do | message | -%>
         <div>
             <% if message.sender_email == current_user.email %>
                 <p class="speech-bubble-sender"> <%= message.content %> </p>

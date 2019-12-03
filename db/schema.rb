@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191120205144) do
+ActiveRecord::Schema.define(version: 20191203180411) do
 
   create_table "contracts", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20191120205144) do
     t.string "account_id"
     t.string "account_password"
     t.float "price"
+    t.string "service"
     t.index ["created_at"], name: "index_contracts_on_sharer_id_and_created_at"
     t.index ["joiner_uid"], name: "index_contracts_on_joiner_uid"
     t.index ["sharer_id"], name: "index_contracts_on_sharer_id"
@@ -33,6 +34,7 @@ ActiveRecord::Schema.define(version: 20191120205144) do
     t.integer "user_id"
     t.string "service"
     t.string "status"
+    t.index ["status"], name: "index_joiners_on_status"
     t.index ["user_id"], name: "index_joiners_on_user_id"
   end
 
@@ -56,6 +58,7 @@ ActiveRecord::Schema.define(version: 20191120205144) do
     t.string "account_password"
     t.string "status"
     t.float "plan_cost"
+    t.index ["status"], name: "index_sharers_on_status"
     t.index ["user_id"], name: "index_sharers_on_user_id"
   end
 

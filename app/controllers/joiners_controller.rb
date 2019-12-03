@@ -31,7 +31,7 @@ class JoinersController < ApplicationController
       unless Sharer.first.nil?
         sharer = Sharer.where("size > ? AND user_id != ? AND service == ?", 0, @joiner.user_id, @joiner.service).order(:created_at).first
         unless sharer.nil?
-          @contract = Contract.new(sharer_id: sharer.id, sharer_uid: sharer.user_id, joiner_uid: @joiner.user_id, account_id: sharer.account_id, account_password: sharer.account_password, price: 0)
+          @contract = Contract.new(sharer_id: sharer.id, sharer_uid: sharer.user_id, joiner_uid: @joiner.user_id, account_id: sharer.account_id, account_password: sharer.account_password, price: 0, service: sharer.service)
           if @contract.save
             @joiner.status = "Complete"
             sharer.size = sharer.size - 1

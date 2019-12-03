@@ -74,7 +74,7 @@ class SharersController < ApplicationController
             @sharer.save
             joiners.each do |j|
               #create the contracts
-              @contract = Contract.new(sharer_id:@sharer.id, sharer_uid: @sharer.user_id, joiner_uid: j.user_id, account_id: @sharer.account_id, account_password: @sharer.account_password, price: 0)
+              @contract = Contract.new(sharer_id:@sharer.id, sharer_uid: @sharer.user_id, joiner_uid: j.user_id, account_id: @sharer.account_id, account_password: @sharer.account_password, price: 0, service: @sharer.service)
               @contract.save
               puts "MATCHED SHARER #{@sharer.user_id} TO #{j.user_id}"
               j.status = "Complete"

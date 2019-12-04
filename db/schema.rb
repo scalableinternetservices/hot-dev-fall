@@ -10,17 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191120205144) do
+ActiveRecord::Schema.define(version: 20191204091324) do
 
   create_table "contracts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "sharer_id"
-    t.integer "sharer_uid"
-    t.integer "joiner_uid"
-    t.string "account_id"
-    t.string "account_password"
-    t.float "price"
+    t.integer "sharer_id", limit: 2
+    t.integer "sharer_uid", limit: 2
+    t.integer "joiner_uid", limit: 2
+    t.string "account_id", limit: 16
+    t.string "account_password", limit: 16
+    t.decimal "price", precision: 4, scale: 3
     t.index ["created_at"], name: "index_contracts_on_sharer_id_and_created_at"
     t.index ["joiner_uid"], name: "index_contracts_on_joiner_uid"
     t.index ["sharer_id"], name: "index_contracts_on_sharer_id"
@@ -30,18 +30,18 @@ ActiveRecord::Schema.define(version: 20191120205144) do
   create_table "joiners", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.string "service"
-    t.string "status"
+    t.integer "user_id", limit: 2
+    t.string "service", limit: 8
+    t.string "status", limit: 8
     t.index ["user_id"], name: "index_joiners_on_user_id"
   end
 
   create_table "messages", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "content"
-    t.integer "contract_id"
-    t.string "sender_email"
+    t.string "content"
+    t.integer "contract_id", limit: 2
+    t.string "sender_email", limit: 16
     t.index ["contract_id"], name: "index_messages_on_contract_id"
     t.index ["created_at"], name: "index_messages_on_created_at"
   end
@@ -49,13 +49,13 @@ ActiveRecord::Schema.define(version: 20191120205144) do
   create_table "sharers", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.string "service"
-    t.integer "size"
-    t.string "account_id"
-    t.string "account_password"
-    t.string "status"
-    t.float "plan_cost"
+    t.integer "user_id", limit: 2
+    t.string "service", limit: 8
+    t.integer "size", limit: 1
+    t.string "account_id", limit: 16
+    t.string "account_password", limit: 16
+    t.string "status", limit: 8
+    t.decimal "plan_cost", precision: 4, scale: 3
     t.index ["user_id"], name: "index_sharers_on_user_id"
   end
 

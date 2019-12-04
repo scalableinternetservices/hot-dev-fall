@@ -12,6 +12,7 @@
     <![endif]-->
   </head>
   <body>
+      <% cache "top-navbar" do -%>
         <nav class="navbar-custom navbar-fixed-top" id="myTopnav">
           <%= link_to image_tag("logo.png"), "/" , class: "nav-brand"%>
           <ul class="nav-links" id="navbarTogglerDemo02">
@@ -33,8 +34,9 @@
           </ul>
           
         </nav>
+      <% end %>
 
-
+      <% cache "side-navbar" do -%>
         <div class="entireSideNav">
             <nav>
               <div class="sidenav-toggle-holder" onclick="handleToggleClick()">
@@ -57,7 +59,7 @@
               </div>
             </nav>
           </div>
-
+      <% end %>
     <div class="container">
       <%= yield %>
     </div>

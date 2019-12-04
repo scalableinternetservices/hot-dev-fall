@@ -1,9 +1,9 @@
 <div>
     <% @messages.each do | message | -%>
         <div>
-            <% if message.sender_email == current_user.email %>
+            <% if current_user.nil? || message.sender_email == current_user.email  %>
                 <p class="speech-bubble-sender"> <%= message.content %> </p>
-            <%else %>
+            <% else %>
                 <p class="speech-bubble-receiver"><%= message.content %> </p>
             <%end%>
             <hr>

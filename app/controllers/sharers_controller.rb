@@ -4,7 +4,7 @@ class SharersController < ApplicationController
   # GET /sharers
   # GET /sharers.json
   def index
-    @sharers = Sharer.all
+    http_cache_forever(public: true) {}
   end
 
   # GET /sharers/1

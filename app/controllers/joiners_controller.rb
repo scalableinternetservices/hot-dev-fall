@@ -4,7 +4,7 @@ class JoinersController < ApplicationController
   # GET /joiners
   # GET /joiners.json
   def index
-    @joiners = Joiner.all
+    http_cache_forever(public: true) {}
   end
 
   # GET /joiners/1

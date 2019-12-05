@@ -11,8 +11,12 @@ module SubscriptionSharing
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
     
-    config.action_controller.perform_caching = true
-    config.cache_store = :memory_store, { size: 64.megabytes }
+    # config.action_controller.perform_caching = true
+    # config.cache_store = :memory_store, { size: 64.megabytes }
+
+    # endpoint = "shareflix-memcached.5sqcdv.cfg.usw2.cache.amazonaws.com:11211"
+    # elasticache = Dalli::ElastiCache.new(endpoint)
+    # config.cache_store = :dalli_store, elasticache.servers, {:expires_in => 1.day, :compress => true}
 
     # TODO: Configure/deploy memcache instead of in memory
     # config.cache_store = :dalli_store, 'http://localhost:12111',

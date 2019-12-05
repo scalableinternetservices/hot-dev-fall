@@ -25,7 +25,7 @@ class StaticPagesController < ApplicationController
             puts "KEY: #{cache_key}"
 
             # TODO: Figure out when to expire i.e. length of a session/load test
-            contractObject = Rails.cache.fetch(cache_key, expires_in: 5.minutes) do
+            contractObject = Rails.cache.fetch(cache_key, expires_in: 1.minutes) do
               process_share_contract(contract)
             end
 

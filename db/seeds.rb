@@ -1,24 +1,24 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 
-n_users = 250
+n_users = 500
 
 def update_contract_cost(sharer)
     contracts = Contract.where(sharer_id: sharer.id)
     new_price = sharer.plan_cost/(contracts.length + 1)
-  
+
     contracts.each do |c|
       c.price = new_price
       c.save
     end
 end
-  
+
 for user_id in 1..n_users
     user = User.create! :email => "user#{user_id}@fakeemail.com", :password => 'topsecret', :password_confirmation => 'topsecret'
 end
 
 puts "CREATED: #{User.count} Users"
-  
+
 for user_id in 1..n_users
     for i in 1...rand(0...50)
         r = rand(10)
@@ -46,7 +46,11 @@ for user_id in 1..n_users
             n = [["Netflix",1,12.99],["Netflix",3,15.99],["Hulu",1,5.99],["Hulu",2,11.99],["Disney+",3,6.99]].sample
             #   Sharer.create(user_id: user_id, service: n[0], size: n[1], account_id:"helpme@me.com", account_password:"MOUSE", status: "Pending", plan_cost: n[2])
             ch = [["Netflix",1,12.99],["Netflix",3,15.99],["Hulu",1,5.99],["Hulu",2,11.99],["Disney+",3,6.99]].sample
-            sharer = Sharer.create(user_id: user_id, service: ch[0], size: ch[1], account_id:"helpme@me.com", account_password:"MOUSE", status: "Pending", plan_cost: ch[2])
+
+            account_id = (0..8).map{('a'..'z').to_a[rand(26)]}.join
+            account_password = (0..8).map{('a'..'z').to_a[rand(26)]}.join
+
+            sharer = Sharer.create(user_id: user_id, service: ch[0], size: ch[1], account_id:account_id, account_password:account_password, status: "Pending", plan_cost: ch[2])
             unless Joiner.first.nil?
                 joiners = Joiner.where("? != user_id AND ? == service AND status == ?", sharer.user_id, sharer.service, "Pending").order(:created_at).first(sharer.size)
                 if joiners.length > 0
@@ -81,10 +85,10 @@ puts "COUNT: #{Joiner.where("status == ?", "Complete").count} COMPLETE JOIN REQS
 puts "COUNT: #{Sharer.where("status == ?", "Complete").count} COMPLETE SHARE REQS"
 
 puts "FINISHED HOME PAGE SEEDING STUFF"
-  
+
 Contract.all.each do |c|
     for i in 1...rand(0...25)
-        Message.create(content: "Hi, what's the new password?", contract_id: c.id, sender_email: "fake@email.com")
+        Message.create(content: (0..8).map{('a'..'z').to_a[rand(26)]}.join, contract_id: c.id, sender_email: "fake@email.com")
     end
 end
 

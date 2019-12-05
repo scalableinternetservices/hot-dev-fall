@@ -14,6 +14,10 @@
 <%= form_for(@message) do |f| %>
   <%= f.text_field :content, :class=>"message-text-field"%>
   <%= f.hidden_field :contract_id, :value => @contract_id %>
-  <%= f.hidden_field :sender_email, :value => current_user.email %>
+  <% if current_user.nil? %>
+     <%= f.hidden_field :sender_email, :value => "dummy@dummyemail.com" %>
+  <% else %>
+    <%= f.hidden_field :sender_email, :value => current_user.email %>
+  <% end%>
   <%= f.submit "Send"%>
 <% end %>

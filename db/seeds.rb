@@ -1,7 +1,12 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 
-n_users = 150
+puts "Users #{ENV["users"]}"
+puts "Requests #{ENV["requests"]}"
+
+n_users = ENV["users"].to_i
+n_requests = ENV["requests"].to_i
+n_messages = ENV["messages"].to_i
 
 def update_contract_cost(sharer)
     contracts = Contract.where(sharer_id: sharer.id)
@@ -20,7 +25,7 @@ end
 puts "CREATED: #{User.count} Users"
 
 for user_id in 1..n_users
-    for i in 1...rand(0...50)
+    for i in 1...rand(0...n_requests)
         r = rand(10)
         if r <= 6
             #   Joiner.create(user_id: user_id, service: ["Netflix", "Disney+", "Hulu"].sample, status: "Pending")
@@ -87,7 +92,7 @@ puts "COUNT: #{Sharer.where("status == ?", "Complete").count} COMPLETE SHARE REQ
 puts "FINISHED HOME PAGE SEEDING STUFF"
 
 Contract.all.each do |c|
-    for i in 1...rand(0...25)
+    for i in 1...rand(0...n_messages)
         Message.create(content: (0..8).map{('a'..'z').to_a[rand(26)]}.join, contract_id: c.id, sender_email: "fake@email.com")
     end
 end

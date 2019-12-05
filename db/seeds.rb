@@ -13,7 +13,7 @@ end
 
 
 
-for x in 1..50
+for x in 1..100
   r = rand(10)
   if r < 6
     Joiner.create(user_id: x, service: ["Netflix", "Disney+", "Hulu"].sample, status: "Pending")

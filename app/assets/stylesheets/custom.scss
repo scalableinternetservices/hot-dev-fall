@@ -194,13 +194,21 @@ nav {
 
 //=============CARDS======================
 
-.card {
+.card, .small-card {
   height: 300px;
   overflow: scroll;
   max-height: 300px;
   width: 18rem;
   margin: 8px;
+  color: white;
+  background-color: black;
+  border: 1px solid rebeccapurple;
 }
+
+.small-card {
+  height: 160px;
+}
+
 .default-color {
   color: white;
 }
@@ -219,12 +227,6 @@ nav {
 
 a {
     color: lightgray
-}
-
-.card {
-  color: white;
-  background-color: black;
-  border: 1px solid rebeccapurple;
 }
 
 .container {

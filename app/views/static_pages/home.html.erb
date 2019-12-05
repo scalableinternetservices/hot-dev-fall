@@ -59,7 +59,7 @@
           </br>
             <div class="row flexible-container">
                 <% @my_share_requests.each do |request| -%>
-                  <div class="card" style="width: 18rem;">
+                  <div class="small-card" style="width: 18rem;">
                     <div class="card-body">
                       <h4><b><%= request.service %></b></h4>
                       <p>Account: <b><%= request.account_id %></b></p>
@@ -76,7 +76,7 @@
          <h1> Pending join requests: </h1>
             <div class="row flexible-container">
                 <% @my_join_requests.each do |request| -%>
-                  <div class="card" style="width: 18rem;">
+                  <div class="small-card" style="width: 18rem;">
                       <div class="card-body">
                             <h4><b><%= request.service %></b></h4>
                             <p>Request submitted on: <b><%= request.created_at %></b></p>

@@ -1,7 +1,7 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 
-n_users = 25
+n_users = 250
 
 def update_contract_cost(sharer)
     contracts = Contract.where(sharer_id: sharer.id)

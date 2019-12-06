@@ -79,7 +79,7 @@ class MessagesController < ApplicationController
     end
 
     def get_messages_for_contract
-        @messages = Message.where(contract_id:params[:id]).order("created_at DESC").page(params[:page]).per_page(10)
+        @messages = Message.where(contract_id:params[:id]).order("created_at DESC").page(params[:page]).per_page(5)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
